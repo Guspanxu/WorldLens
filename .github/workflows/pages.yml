@@ -39,3 +39,14 @@ jobs:
       - name: Deploy observation studio
         id: deployment
         uses: actions/deploy-pages@v5
+      - name: Verify the public visitor URL
+        env:
+          SITE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          base="${SITE_URL%/}"
+          page="$RUNNER_TEMP/worldlens-index.html"
+          curl --fail --silent --show-error --location --retry 4 --retry-all-errors "$base/" --output "$page"
+          grep -Fq '<title>WorldLens · 日常观察室</title>' "$page"
+          for path in app/main.js lenses/designer.json photos/dialog.jpg; do
+            curl --fail --silent --show-error --location --retry 4 --retry-all-errors "$base/$path" --output /dev/null
+          done
