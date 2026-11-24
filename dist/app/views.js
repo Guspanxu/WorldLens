@@ -1,5 +1,5 @@
 import { icon, escapeHtml as h } from './icons.js';
-import { kindNames } from './core.js';
+import { kindNames, LOUPE_ZOOM } from './core.js';
 import { resource } from './resources.js';
 
 const btn = (act, label, glyph, cls = 'outline') =>
@@ -42,7 +42,10 @@ function photoView(s) {
   const findings = guided ? s.rec.analysis?.findings || [] : [];
   const hasMarkers = findings.some(f => f.geometry?.points?.length) || s.rec.notes.some(n => n.point) || s.pendingNotePoint;
   const sample = s.samples.find(p => p.id === s.rec.source.caseId);
-  const hint = hasMarkers && guided && s.visible ? '点编号看线索' : sample ? sample.collection : '我的照片 · 本机保存';
+  let hint = sample ? sample.collection : '我的照片 · 本机保存';
+  if (hasMarkers && guided && s.visible) hint = '点编号看线索';
+  if (s.pick) hint = '在原图上标记';
+  if (s.loupe) hint = '原图 · ' + LOUPE_ZOOM + '×';
   const toggleLabel = s.visible ? '隐藏标注' : '显示标注';
   const glassLabel = s.loupe ? '收起放大镜' : '自由放大原图';
   return `<figure class="plate" aria-label="${h(s.rec.title)}">

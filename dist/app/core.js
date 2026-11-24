@@ -1,4 +1,5 @@
 export const VERSION = 1;
+export const LOUPE_ZOOM = 2.5;
 export const clamp = x => Math.min(1, Math.max(0, x));
 export const freshId = () => globalThis.crypto.randomUUID();
 export const copy = value => structuredClone(value);
@@ -146,7 +147,7 @@ export function loupeFrame(point, width, height) {
   if (!Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite) ||
       ![width,height].every(v => Number.isFinite(v) && v > 0)) return null;
   const size = Math.min(width * .40, height * .60, 168);
-  const radius = size / 2, zoom = 2.5;
+  const radius = size / 2, zoom = LOUPE_ZOOM;
   const x = clamp(point[0]) * width, y = clamp(point[1]) * height;
   const bound = (v, limit) => Math.min(limit - radius, Math.max(radius, v));
   const cx = bound(x, width);

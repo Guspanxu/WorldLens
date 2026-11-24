@@ -253,7 +253,7 @@ dialog::backdrop { background: #201d1894; }
 .method p,.guide-list details > p,.guide-list details > .evidence-part,.concept-body { max-width: 42em; font-size: 17px; line-height: 1.8; padding: 2px 3px 13px; }
 .citations { color: var(--sub); margin-top: 13px; }
 .gallery-open { overflow: hidden; }
-.gallery-open .plate { position: fixed; inset: 2dvh 2vw; z-index: 70; display: flex; flex-direction: column; background: var(--paper); padding: 9px; box-shadow: 0 0 0 100vmax #24231fe8; border-radius: 7px; }
+.gallery-open .plate { position: fixed; width: auto; max-width: none; inset: 2dvh 2vw; z-index: 70; display: flex; flex-direction: column; background: var(--paper); padding: 9px; box-shadow: 0 0 0 100vmax #24231fe8; border-radius: 7px; }
 .gallery-open .image-stage { flex: 1; min-height: 0; }
 .gallery-open .photo-bar { flex: none; padding-inline: 7px; }
 
