@@ -606,7 +606,7 @@ async function dispatch(act) {
     const f = selectedFinding();
     if (!f?.geometry?.points?.length) return;
     showDialog('原图局部', '<div class="crop-window crop-modal" data-crop-window role="img" aria-label="' +
-      h(f.notice) + '的原图局部"></div><p class="crop-description">' + h(f.observation) + '</p>');
+      '原图局部，' + h(f.notice) + '"></div><p class="crop-description">' + h(f.observation) + '</p>');
     refreshDetailCrops(s);
     return;
   }

@@ -134,11 +134,16 @@ button, summary, a { -webkit-tap-highlight-color: #3048ba20; }
 .step-btn:disabled { border-color: #ffffff29; color: #9eabc680; }
 .finding-title, .reader-content > h2 { color: white; font-size: clamp(28px, 2.45vw, 38px); line-height: 1.36; letter-spacing: -.038em; font-weight: 725; overflow-wrap: anywhere; }
 .step-line + .finding-title { margin-top: 14px; }
+.finding-title { text-wrap: balance; }
+.question-clause { display: inline-block; max-width: 100%; }
 .read-tabs { margin-top: clamp(18px, 1.9vw, 27px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 12px; background: #09132c96; }
 .read-tabs button { min-height: 42px; border-radius: 8px; font-size: 16px; font-weight: 580; color: #e3eaf9; }
 .read-tabs button:hover { background: #ffffff13; }
 .read-tabs button[aria-pressed="true"] { background: var(--chartreuse); color: #17213a; font-weight: 750; }
 .detail-copy, .reader-content > p { margin-top: 17px; color: #f4f6fd; font-size: clamp(17px, 1.3vw, 19px); line-height: 1.8; overflow-wrap: anywhere; }
+.detail-copy p { text-wrap: pretty; }
+.located-clue > strong, .located-clue > span { display: block; }
+.located-clue > strong { font-weight: 650; }
 .evidence-part + .evidence-part { margin-top: .85em; }
 .evidence-part > strong { display: block; font-size: 15px; font-weight: 690; color: var(--blue); }
 .reader .evidence-part > strong { color: var(--chartreuse); }

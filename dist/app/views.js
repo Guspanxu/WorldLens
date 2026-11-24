@@ -88,6 +88,18 @@ function paragraphs(label, value) {
   return value ? `<div class="evidence-part"><strong>${h(label)}</strong><p>${h(value)}</p></div>` : '';
 }
 
+function questionTitle(text) {
+  const clauses = text.split('，');
+  return clauses.map((clause, i) => '<span class="question-clause">' +
+    h(clause) + (i < clauses.length - 1 ? '，' : '') + '</span>').join('');
+}
+
+function visibleClue(text) {
+  const match = /^(看[^。]{1,13}。)(.+)$/u.exec(text);
+  if (!match) return '<p>' + h(text) + '</p>';
+  return '<p class="located-clue"><strong>' + h(match[1]) + '</strong><span>' + h(match[2]) + '</span></p>';
+}
+
 function reading(s, f) {
   const stages = s.lens.readingMethod?.stages || [
     {id: 'notice', label: '看线索'}, {id: 'understand', label: '想原因'},
@@ -108,7 +120,7 @@ function reading(s, f) {
     body = paragraphs('带走一个看法', f.takeaway) +
       paragraphs('换件东西试试', f.transfer || '找一个不同的物件，试着用同样的问题观察它。');
   } else {
-    body = `<p>${h(f.observation)}</p>`;
+    body = visibleClue(f.observation);
   }
   const local = f.geometry?.points?.length && f.geometry.type !== 'global' && s.layer === 'notice';
   const tools = s.layer !== 'notice' ? '' : `<div class="reading-actions">
@@ -138,7 +150,7 @@ function focusNote(s, a) {
       <span class="kind-label">${h(category)}</span></div>
       ${a.findings.length > 1 ? `<div class="step-controls">${stepButton(a.findings[idx - 1], 'previous')}${stepButton(a.findings[idx + 1], 'next')}</div>` : ''}
     </div>
-    <h2 class="finding-title" id="finding-title">${h(f.notice)}</h2>
+    <h2 class="finding-title" id="finding-title" aria-label="${h(f.notice)}">${questionTitle(f.notice)}</h2>
     ${reading(s, f)}
   </div>`;
 }

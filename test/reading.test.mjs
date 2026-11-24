@@ -17,7 +17,8 @@ test('each reading stage reveals only its question and evidence, and old records
   const state = {rec:record, samples, lens, currentUrl:photo.image, mode:'explore', visible:true,
     selected:first.id, layer:'notice'};
   const firstStage = studio(state);
-  assert.ok(firstStage.includes(first.observation));
+  assert.ok(firstStage.replace(/<[^>]*>/g,'').includes(first.observation));
+  assert.ok(firstStage.includes('class="question-clause"'));
   assert.ok(!firstStage.includes(second.notice) && !firstStage.includes(first.interpretation));
   assert.ok(firstStage.includes('data-act="detail-photo"'));
   assert.match(firstStage, /disabled data-step="previous"/);
