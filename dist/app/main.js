@@ -34,7 +34,8 @@ import {
 } from './icons.js';
 import {
   detachCanvas,
-  attachCanvas
+  attachCanvas,
+  refreshDetailCrops
 } from './annotations.js';
 import {
   studio,
@@ -59,7 +60,6 @@ const s = {
   lenses: [],
   lens: null,
   samples: [],
-  stageColor: '',
   currentUrl: '',
   pick: null,
   pendingNotePoint: null,
@@ -180,11 +180,25 @@ function navPaint() {
 function render(track = true) {
   if (!s.rec) return;
   if (track) trackDraft();
+  const focused = document.activeElement;
+  let restore = null;
+  if (focused instanceof HTMLButtonElement && app.contains(focused)) {
+    if (focused.dataset.step) restore = '[data-step="' + focused.dataset.step + '"]:not(:disabled)';
+    else if (focused.dataset.layer) restore = '[data-layer="' + focused.dataset.layer + '"]';
+    else if (focused.dataset.mode) restore = '[data-mode="' + focused.dataset.mode + '"]';
+    else if (focused.matches('.pin-dot[data-find]')) restore = '.pin-dot[data-find="' + CSS.escape(focused.dataset.find) + '"]';
+    else if (['toggle', 'expand'].includes(focused.dataset.act)) restore = '[data-act="' + focused.dataset.act + '"]';
+  }
   navPaint();
   if (s.view === 'studio') {
     app.innerHTML = studio(s);
     if ($('#note-text')) $('#note-text').value = noteDraft;
-    attachCanvas(s)
+    attachCanvas(s);
+    if (restore) requestAnimationFrame(() => {
+      if (document.activeElement !== document.body) return;
+      const next = app.querySelector(restore) || (focused.dataset.step && app.querySelector('[data-step]:not(:disabled)'));
+      next?.focus({preventScroll: true});
+    });
   } else if (s.view === 'guide') {
     detachCanvas();
     app.innerHTML = guideView(s.lens, s.guideConcept)
@@ -254,7 +268,6 @@ function updatePhoto(rec, local = false) {
   s.layer = 'notice';
   s.selected = rec.analysis?.findings[0]?.id || null;
   s.view = 'studio';
-  s.stageColor = s.samples.find(c => c.id === rec.source.caseId)?.color || '#e2e5dc';
   s.currentUrl = rec.original ? urlFor(rec.original) : resource(s.samples.find(c => c.id === rec.source.caseId)?.image || rec.imageUrl);
   rec.exposed ||= seen.has(identity(rec));
   if (s.mode === 'explore' && rec.analysis) remember(rec);
@@ -306,11 +319,17 @@ function selectFinding(id, fromPhoto = false) {
   s.selected = id;
   s.layer = 'notice';
   s.pick = null;
+  if (fromPhoto) s.expanded = false;
   render();
-  if (fromPhoto && window.innerWidth <= 760 && !s.expanded) $('#inspector')?.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start'
-  });
+  if (fromPhoto && window.innerWidth <= 820) {
+    const copy = $('#reading-text');
+    if (!copy) return;
+    const bottomInset = window.innerWidth <= 640 ? $('.main-nav').offsetHeight + 10 : 12;
+    const overflow = copy.getBoundingClientRect().bottom - window.innerHeight + bottomInset;
+    const keepPhoto = $('#image-stage').getBoundingClientRect().bottom - Math.min(135, window.innerHeight * .2);
+    const shift = Math.min(overflow, keepPhoto);
+    if (shift > 0) window.scrollBy({top: shift, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  }
 }
 
 function getPhoto() {
@@ -320,7 +339,7 @@ function getPhoto() {
   })
 }
 async function openUpload() {
-  showDialog('开始一张新观察', '<p>选一张能看清物件和周边环境的照片。你可以先独立观察，也可以直接分析。</p><button class="drop" data-act="file">' + icon('upload', 29) + '<span>选择或拖入照片</span><small>JPEG、PNG、WebP 或浏览器可读取的照片</small></button><div class="actionbar upload-choice">' + btn('camera', '使用相机', 'camera') + '</div><p class="dialog-foot">' + icon('lock', 14) + ' 照片保存在当前设备，可随时导出。</p>');
+  showDialog('观察你的照片', '<p>拍下一个让你好奇的物件，给它周围也留一点画面。</p><button class="drop" data-act="file">' + icon('upload', 27) + '<span>选一张照片</span><small>也可以把照片拖到这里</small></button><div class="upload-choice">' + btn('camera', '使用相机拍照', 'camera') + '</div><p class="dialog-foot">' + icon('lock', 15) + ' 照片和手记保存在这个浏览器。</p>');
   const drop = $('.drop');
   drop.ondragover = e => {
     e.preventDefault();
@@ -575,8 +594,22 @@ async function dispatch(act) {
     return
   }
   if (act === 'import') { $('#import-input').click(); return; }
-  if (act === 'save') return persist(true);
-  if (act === 'export') return exportCurrent();
+  if (act === 'save') { closeDialog(); return persist(true); }
+  if (act === 'export') { closeDialog(); return exportCurrent(); }
+  if (act === 'cancel-pick') { s.pick = null; render(); return; }
+  if (act === 'photo-menu') {
+    showDialog('这张照片', '<div class="photo-menu">' + inline('save', '保存到我的手记', 'bookmark') +
+      inline('export', '导出照片和手记', 'download') + (s.rec.source.kind === 'case' ? inline('photo-info', '照片出处', 'info') : '') + '</div>');
+    return;
+  }
+  if (act === 'detail-photo') {
+    const f = selectedFinding();
+    if (!f?.geometry?.points?.length) return;
+    showDialog('原图局部', '<div class="crop-window crop-modal" data-crop-window role="img" aria-label="' +
+      h(f.notice) + '的原图局部"></div><p class="crop-description">' + h(f.observation) + '</p>');
+    refreshDetailCrops(s);
+    return;
+  }
   if (act === 'privacy') return showPrivacy();
   if (act === 'share') return share();
   if (act === 'copy-link') {
@@ -728,6 +761,10 @@ document.addEventListener('click', async e => {
     }
     if (b.dataset.case) {
       await openCase(b.dataset.case);
+      if (s.view === 'studio') {
+        window.scrollTo({top: 0});
+        $('#main').focus({preventScroll: true});
+      }
       return
     }
     if (b.dataset.find) {

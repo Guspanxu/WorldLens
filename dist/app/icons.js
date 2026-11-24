@@ -1,4 +1,9 @@
 const shapes = {
+  collection: '<rect x="4" y="5" width="15" height="14" rx="2"/><path d="M8 2h12a2 2 0 0 1 2 2v11M7 15l3-4 3 3 2-2 2 3"/>',
+  left: '<path d="m14.5 5-7 7 7 7"/>',
+  right: '<path d="m9.5 5 7 7-7 7"/>',
+  more: '<circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/>',
+  zoom: '<circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5M7.5 10h5M10 7.5v5"/>',
   aperture: '<circle cx="12" cy="12" r="9.5"/><path d="m13.5 3 5 8.5M21 13l-10 .1M16 20.7l-5.1-8.8M6.5 19.5l5-8.7M2.7 10.3l10 .1M8 3.5l5.1 8.7"/>',
   scan: '<path d="M4 9V4h5m6 0h5v5m0 6v5h-5m-6 0H4v-5"/><circle cx="12" cy="12" r="2"/>',
   book: '<path d="M4 4.8c3.3-1.2 5.8-.7 8 1.2 2.2-1.9 4.7-2.4 8-1.2v14.5c-3.2-1.1-5.8-.5-8 1.1-2.2-1.6-4.8-2.2-8-1.1zM12 6v14"/>',

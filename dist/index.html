@@ -1,11 +1,33 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f6f0"><meta name="description" content="在自己的照片上学习观察、提问和验证日常设计。"><title>WorldLens · 日常观察室</title><link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css"></head>
-<body><a class="skip" href="#main">跳到观察内容</a>
-<header class="top"><div class="top-inner"><a class="brand" href="#studio" aria-label="WorldLens 观察室"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>WorldLens</span></a>
-<nav aria-label="主导航"><button data-view="studio" class="nav active">观察室</button><button data-view="library" class="nav">我的手记</button><button data-view="guide" class="nav">视角指南</button></nav>
-<button class="btn new-photo compact" data-act="upload"><span data-icon="plus"></span>新建观察</button></div></header>
-<main id="main" tabindex="-1"><div id="app" class="shell"><p class="boot">正在打开观察室…</p></div></main>
-<footer class="site-foot"><div><span class="foot-brand">WorldLens</span><span lang="en">One world. Many ways of seeing.</span></div><button class="text-btn" data-act="privacy"><span data-icon="lock"></span>数据与隐私</button><button class="text-btn" data-act="share"><span data-icon="share"></span>分享工具</button></footer>
-<dialog id="modal"><div class="dialog-body" id="modal-body"></div></dialog><div id="toast" role="status" aria-live="polite"></div>
-<input hidden type="file" id="import-input" accept="application/json,.json"><input hidden type="file" id="photo-input" accept="image/*"><input hidden type="file" id="camera-input" accept="image/*" capture="environment"><input hidden type="file" id="extra-input" accept="image/*">
-<noscript>请启用 JavaScript 以在照片上观察和保存手记。</noscript><script type="module" src="./app/main.js"></script></body></html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f8f8f4">
+  <meta name="description" content="拍下一个日常物件，在原图上发现细节，练习用设计师的眼睛观察。">
+  <title>WorldLens · 日常观察室</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到观察内容</a>
+  <header class="top"><div class="top-inner">
+    <a class="brand" href="#studio" aria-label="WorldLens 观察室"><span class="brand-symbol" aria-hidden="true"><i></i></span><span>WorldLens</span></a>
+    <nav class="main-nav" aria-label="主导航">
+      <button data-view="studio" class="nav active"><span data-icon="scan"></span>观察室</button>
+      <button data-view="library" class="nav"><span data-icon="note"></span>我的手记</button>
+      <button data-view="guide" class="nav"><span data-icon="book"></span>视角指南</button>
+    </nav>
+    <button class="btn new-photo" data-act="upload"><span data-icon="camera"></span>拍照或选图</button>
+  </div></header>
+  <main id="main" tabindex="-1"><div id="app" class="shell"><p class="boot">正在打开观察室…</p></div></main>
+  <footer class="site-foot"><div class="foot-brand">WorldLens</div><span class="foot-motto" lang="en">One world. Many ways of seeing.</span>
+    <div class="foot-actions"><button class="text-btn" data-act="privacy"><span data-icon="lock"></span>数据与隐私</button>
+    <button class="text-btn" data-act="share"><span data-icon="share"></span>分享工具</button></div>
+  </footer>
+  <dialog id="modal"><div class="dialog-body" id="modal-body"></div></dialog><div id="toast" role="status" aria-live="polite"></div>
+  <input hidden type="file" id="import-input" accept="application/json,.json"><input hidden type="file" id="photo-input" accept="image/*">
+  <input hidden type="file" id="camera-input" accept="image/*" capture="environment"><input hidden type="file" id="extra-input" accept="image/*">
+  <noscript>请启用 JavaScript 以在照片上观察和保存手记。</noscript><script type="module" src="./app/main.js"></script>
+</body>
+</html>

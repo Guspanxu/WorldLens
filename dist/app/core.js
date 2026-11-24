@@ -89,19 +89,19 @@ export function placePins(items, width, height) {
     const center = anchor(item.geometry);
     if (!center) continue;
     const original = center.map((a, i) => a * (i === 0 ? width : height));
-    const inset = 15;
+    const inset = Math.min(23, width / 2, height / 2);
     let best = null,
       bestGap = -1;
     for (const [dx, dy] of [
-        [0, 0],
-        [29, -23],
-        [-29, -23],
-        [29, 23],
-        [-29, 23],
-        [0, -48],
-        [0, 48],
-        [48, 0],
-        [-48, 0]
+        [31, -33],
+        [-31, -33],
+        [31, 33],
+        [-31, 33],
+        [0, -56],
+        [0, 56],
+        [56, 0],
+        [-56, 0],
+        [0, 0]
       ]) {
       const x = Math.max(inset, Math.min(width - inset, original[0] + dx));
       const y = Math.max(inset, Math.min(height - inset, original[1] + dy));
@@ -115,7 +115,7 @@ export function placePins(items, width, height) {
         };
         bestGap = gap
       }
-      if (gap >= 40) break;
+      if (gap >= 47) break;
     }
     placed.push(best);
   }
@@ -141,6 +141,22 @@ export function pointerPosition(clientX, clientY, rect) {
   return [clamp((clientX - rect.left) / rect.width), clamp((clientY - rect.top) / rect.height)];
 }
 
+// Fit every selected evidence point in the close-up, including points on a photo edge.
+export function detailFrame(geometry, imageWidth, imageHeight, width, height) {
+  if (!geometry?.points?.length || geometry.type === 'global' ||
+      ![width, height, imageWidth, imageHeight].every(v => Number.isFinite(v) && v > 0)) return null;
+  const xs = geometry.points.map(p => p[0] * imageWidth);
+  const ys = geometry.points.map(p => p[1] * imageHeight);
+  const left = Math.min(...xs), right = Math.max(...xs), top = Math.min(...ys), bottom = Math.max(...ys);
+  const minimum = Math.min(imageWidth, imageHeight) * .25;
+  const scale = Math.min(width / Math.max(minimum, (right - left) * 1.3),
+    height / Math.max(minimum, (bottom - top) * 1.3));
+  const w = imageWidth * scale, h = imageHeight * scale;
+  const offset = (center, total, frame) => total < frame ? (frame - total) / 2 :
+    Math.max(frame - total, Math.min(0, frame / 2 - center * scale));
+  return {w, h, x: offset((left + right) / 2, w, width), y: offset((top + bottom) / 2, h, height)};
+}
+
 export function normalizeResult(raw, lens) {
   if (!raw || !Array.isArray(raw.findings)) throw new Error('模型返回的观察结构不完整，请重新分析。');
   const codes = new Set(lens.concepts.map(c => c.id));
@@ -159,6 +175,7 @@ export function normalizeResult(raw, lens) {
       unknown: clean(item.unknown),
       check: clean(item.check),
       transfer: clean(item.transfer),
+      ...Object.fromEntries(['goal', 'disconfirm', 'takeaway'].filter(k => clean(item[k])).map(k => [k, clean(item[k])])),
       conceptIds: [...new Set((Array.isArray(item.conceptIds) ? item.conceptIds : []).filter(x => codes.has(x)))].slice(0, 3),
       geometry: cleanGeometry(item.geometry),
       ...(item.signal ? {

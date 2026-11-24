@@ -15,6 +15,13 @@ import {
   recognizeLocalText
 } from '../ocr/recognize.mjs';
 
+const positions = [['左上方', '上方', '右上方'], ['左侧', '中央', '右侧'], ['左下方', '下方', '右下方']];
+const band = n => n < .34 ? 0 : n > .66 ? 2 : 1;
+function locationName(geom) {
+  const [[x, y], [u, v]] = geom.points;
+  return positions[band((y + v) / 2)][band((x + u) / 2)];
+}
+
 export function visualFindings(detections, signals) {
   const profiles = new Map(signals.profiles.map(p => [p.query, p]));
   const valid = [];
@@ -63,11 +70,14 @@ export function visualFindings(detections, signals) {
   }) => ({
     kind: 'question',
     notice: p.notice,
-    observation: '模型在框内找到与「' + p.name + '」外观相近的局部，请对照原图确认。',
+    observation: '看画面' + locationName(geom) + '。框里可能是' + p.name + '。' + (p.look || '对照原图确认一下。'),
+    goal: p.goal,
     interpretation: p.interpretation,
-    hypothesis: '如果这一局部确实是' + p.name + '，可以用下面的试验检验这种解释。',
+    hypothesis: p.hypothesis || '',
     unknown: '单张照片没有提供实际操作过程或使用者反应。',
     check: p.check,
+    disconfirm: p.disconfirm,
+    takeaway: p.takeaway,
     transfer: p.transfer,
     conceptIds: [p.concept],
     geometry: geom,
@@ -81,12 +91,17 @@ export function visualFindings(detections, signals) {
     }) => [0, 1].map(i => (geom.points[0][i] + geom.points[1][i]) / 2));
     if (Math.hypot(pts[0][0] - pts[1][0], pts[0][1] - pts[1][1]) < .08) continue;
     const names = matches.map(v => v.profile.name);
+    const areas = matches.map(v => locationName(v.geom));
     details.unshift({
       kind: 'question',
       notice: rule.title,
-      observation: '模型在图中分别指出疑似' + names.join('与') + '的两个位置，请沿连接线核对。',
+      observation: areas[0] === areas[1] ? '画面' + areas[0] + '的两个标记可能是' + names.join('和') + '。沿着连线看看它们的位置。' :
+        '模型在画面' + areas[0] + '标出疑似' + names[0] + '，在' + areas[1] + '标出疑似' + names[1] + '。沿线看两者之间的空间。',
+      goal: rule.goal,
       interpretation: rule.interpretation,
-      hypothesis: '如果它们属于同一使用场景，改变其中一个的位置可能会改变动作路线。',
+      hypothesis: rule.hypothesis || '',
+      disconfirm: rule.disconfirm,
+      takeaway: rule.takeaway,
       unknown: '共同出现在一张照片里，不能证明两者的用途或因果关系。',
       check: rule.check,
       transfer: rule.transfer,
@@ -127,11 +142,14 @@ export function textFindings(lines, profile) {
       kind: profile.kind,
       notice: '「' + l.text + '」指向哪里？',
       observation: '文字识别在标出的区域读到「' + l.text + '」。请在原图核对字样。',
+      goal: profile.goal,
       interpretation: profile.interpretation,
       hypothesis: profile.hypothesis,
       unknown: profile.unknown,
       check: profile.check,
       transfer: profile.transfer,
+      disconfirm: profile.disconfirm,
+      takeaway: profile.takeaway,
       conceptIds: profile.conceptIds,
       geometry: g,
       signal: 'OCR · ' + l.confidence.toFixed(2)

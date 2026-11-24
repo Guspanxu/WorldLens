@@ -30,7 +30,7 @@ const strip = s => s.replace(/^import .* from .*;\s*$/gm, '').replace(/^export (
 const lang = (await fs.readFile(path.join(dist, 'ocr/eng.traineddata'))).toString('base64');
 pack.ocrWorker = (await read('ocr/tesseract-core-lstm.wasm.js')) + '\n' + strip(await read('ocr/panels.mjs')) + '\n' + strip(await read('ocr/engine.mjs')) + '\n' +
   'self.onmessage=async({data})=>{try{self.postMessage({type:"progress",phase:"recognizing"});const b=Uint8Array.from(atob(' + JSON.stringify(lang) + '),s=>s.charCodeAt(0));const lines=await runOcrModel(new Uint8Array(data.image),TesseractCore,b);self.postMessage({type:"result",lines})}catch(e){self.postMessage({type:"error",message:e.message})}};';
-pack.notices = await Promise.all(['ocr/LICENSE.core-and-model.txt', 'ocr/LICENSE.model.txt', 'ocr/THIRD_PARTY.txt'].map(read));
+pack.notices = await Promise.all(['ocr/LICENSE.core-and-model.txt', 'ocr/LICENSE.model.txt', 'ocr/THIRD_PARTY.txt', 'fonts/OFL.txt'].map(read));
 // Encapsulate the source modules, preserving imports and their scoped names. No build dependencies.
 const ready = new Set(),
   compiled = [];
@@ -59,7 +59,8 @@ async function emit(name) {
 }
 await emit('app/main.js');
 const safeJS = s => s.replace(/<\/script/gi, '<\\/script');
-const css = await read('style.css');
+const font = (await fs.readFile(path.join(dist, 'fonts/dm-sans.ttf'))).toString('base64');
+const css = (await read('style.css')).replace('url("./fonts/dm-sans.ttf")', 'url("data:font/ttf;base64,' + font + '")');
 let html = await read('index.html');
 html = html.replace('href="./favicon.svg"', 'href="' + pack.assets['favicon.svg'] + '"')
   .replace('<link rel="stylesheet" href="./style.css">', () => '<style>' + (css) + '</style>');

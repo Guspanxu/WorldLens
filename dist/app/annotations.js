@@ -1,5 +1,5 @@
 import {
-  anchor,
+  detailFrame,
   measureFit,
   placePins
 } from './core.js';
@@ -7,6 +7,25 @@ import {
   escapeHtml as h
 } from './icons.js';
 let observer;
+export function refreshDetailCrops(s) {
+  const source = document.getElementById('original-photo');
+  const finding = s.rec.analysis?.findings.find(f => f.id === s.selected);
+  if (!finding || !source?.naturalWidth) return;
+  for (const window of document.querySelectorAll('[data-crop-window]')) {
+    const frame = detailFrame(finding.geometry, source.naturalWidth, source.naturalHeight,
+      window.clientWidth, window.clientHeight);
+    if (!frame) continue;
+    let crop = window.querySelector('img');
+    if (!crop) {
+      crop = document.createElement('img');
+      crop.alt = '';
+      crop.src = source.currentSrc || source.src;
+      window.append(crop);
+    }
+    Object.assign(crop.style, {width: frame.w + 'px', height: frame.h + 'px',
+      left: frame.x + 'px', top: frame.y + 'px'});
+  }
+}
 export function detachCanvas() {
   observer?.disconnect()
 }
@@ -17,11 +36,13 @@ export function attachCanvas(s) {
     im = document.getElementById('original-photo');
   if (!stage || !im) return;
   mount.classList.toggle('pick-hit', !!s.pick);
+  let lastMarkup;
   const render = () => {
+    if (!stage.isConnected) return;
     if (im.naturalWidth && im.naturalHeight && !s.expanded) {
       const wide = stage.clientWidth / Math.max(im.naturalWidth / im.naturalHeight, .1);
-      const maximum = window.innerWidth <= 760 ? 425 : 545;
-      const stageHeight = Math.min(maximum, Math.max(218, Math.round(wide)));
+      const maximum = window.innerWidth <= 820 ? Math.min(560, Math.max(335, window.innerHeight * .55)) : 620;
+      const stageHeight = Math.min(maximum, Math.max(180, Math.round(wide)));
       if (stage.style.height !== stageHeight + 'px') stage.style.height = stageHeight + 'px';
     }
     const {
@@ -71,31 +92,42 @@ export function attachCanvas(s) {
     if (active && !s.pick) {
       const g = active.geometry,
         points = g.points.map(pixel),
-        stroke = 'stroke="#b8492e" stroke-width="1.6" vector-effect="non-scaling-stroke"';
+        stroke = 'stroke="#e0fa79" stroke-width="2.2" vector-effect="non-scaling-stroke"';
       if (g.type === 'region') {
         const [a, b] = points;
-        shapes = '<rect x="' + a[0] + '" y="' + a[1] + '" width="' + (b[0] - a[0]) + '" height="' + (b[1] - a[1]) + '" rx="4" fill="#f6a673" fill-opacity=".11" ' + stroke + '/>'
+        shapes = '<rect x="' + a[0] + '" y="' + a[1] + '" width="' + (b[0] - a[0]) + '" height="' + (b[1] - a[1]) + '" rx="4" fill="#e0fa79" fill-opacity=".08" ' + stroke + '/>'
       }
       if (g.type === 'relationship' || g.type === 'structure') {
         const tag = g.type === 'structure' ? 'polygon' : 'polyline';
-        shapes = '<' + tag + ' points="' + points.map(p => p.join(',')).join(' ') + '" fill="' + (g.type === 'structure' ? '#eb9e6630' : 'none') + '" ' + stroke + '/>' + points.map(p => '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3.5" fill="#b8492e"/>').join('')
+        shapes = '<' + tag + ' points="' + points.map(p => p.join(',')).join(' ') + '" fill="' + (g.type === 'structure' ? '#e0fa791a' : 'none') + '" ' + stroke + '/>' + points.map(p => '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3.5" fill="#e0fa79" stroke="#1b263c" stroke-width="1.3"/>').join('')
       }
     }
     const pins = placePins(list, w, height);
-    for (const p of pins)
-      if (Math.hypot(p.x - p.original[0], p.y - p.original[1]) > 4) shapes += line(p.original, [p.x, p.y], 'stroke="#a24029" stroke-width="1.5"');
+    for (const p of pins) {
+      if (Math.hypot(p.x - p.original[0], p.y - p.original[1]) <= 4) continue;
+      const color = p.id === active?.id ? '#e0fa79' : '#fff';
+      shapes += line(p.original, [p.x, p.y], 'stroke="#172039" stroke-width="3.2"') +
+        line(p.original, [p.x, p.y], 'stroke="' + color + '" stroke-width="1.6"') +
+        '<circle cx="' + p.original[0] + '" cy="' + p.original[1] + '" r="3" fill="' + color + '" stroke="#172039" stroke-width="1.5"/>';
+    }
     for (const p of s.pick?.points || []) {
       const q = pixel(p);
-      shapes += '<circle cx="' + q[0] + '" cy="' + q[1] + '" r="5" stroke="white" stroke-width="2" fill="#23553e"/>'
+      shapes += '<circle cx="' + q[0] + '" cy="' + q[1] + '" r="5" stroke="white" stroke-width="2" fill="#2944bc"/>'
     }
     const svg = document.getElementById('geo-layer');
     if (!svg) return;
     svg.setAttribute('viewBox', '0 0 ' + w + ' ' + height);
     svg.innerHTML = shapes;
-    document.getElementById('pins').innerHTML = s.pick ? '' : pins.map(p => {
+    const pinLayer = document.getElementById('pins');
+    const markup = s.pick ? '' : pins.map(p => {
       const f = list.find(x => x.id === p.id);
-      return '<button class="pin-dot ' + (f.note ? 'note ' : '') + (p.id === active?.id ? 'selected' : '') + '" ' + (f.note ? 'data-note-pin' : 'data-find') + '="' + h(p.id) + '" style="left:' + p.x + 'px;top:' + p.y + 'px" aria-label="' + h(f.notice) + '"><b>' + h(f.num) + '</b></button>'
+      return '<button class="pin-dot ' + (f.note ? 'note ' : '') + (p.id === active?.id ? 'selected' : '') + '" ' + (f.note ? 'data-note-pin' : 'data-find') + '="' + h(p.id) + '" style="left:' + p.x + 'px;top:' + p.y + 'px" aria-label="' + h(f.notice) + '"' + (f.note ? '' : ' aria-pressed="' + (p.id === active?.id) + '"') + '><b>' + h(f.num) + '</b></button>'
     }).join('');
+    if (lastMarkup !== markup) {
+      pinLayer.innerHTML = markup;
+      lastMarkup = markup;
+    }
+    refreshDetailCrops(s);
   };
   if (im.complete) render();
   im.addEventListener('load', render, {
@@ -103,4 +135,6 @@ export function attachCanvas(s) {
   });
   observer = new ResizeObserver(render);
   observer.observe(stage);
+  const modal = document.getElementById('modal');
+  if (modal) observer.observe(modal);
 }
