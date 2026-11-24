@@ -95,6 +95,8 @@ button:focus-visible,summary:focus-visible,a:focus-visible,textarea:focus-visibl
 .photo-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--mute); font-size: 14px; line-height: 1.45; margin-top: 1px; }
 .photo-meta i { width: 2px; height: 2px; background: #8a897c; border-radius: 50%; }
 .mode-link { min-height: 32px; font-size: 14px; color: var(--sub); gap: 5px; }
+.mode-link { position: relative; }
+.mode-link::before { content: ""; position: absolute; inset: -6px -2px; }
 .photo-tools { display: flex; gap: 0; flex: none; margin: -5px -8px 0 0; }
 
 .lens-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }

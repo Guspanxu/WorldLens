@@ -186,6 +186,7 @@ function render(track = true) {
   let restore = null;
   if (focused instanceof HTMLButtonElement && app.contains(focused)) {
     if (focused.dataset.step) restore = '[data-step="' + focused.dataset.step + '"]:not(:disabled)';
+    else if (focused.hasAttribute('data-forward')) restore = '[data-forward]';
     else if (focused.dataset.layer) restore = '.stage-picker summary';
     else if (focused.dataset.mode) restore = '.mode-link';
     else if (focused.matches('.pin-dot[data-find]')) restore = '.pin-dot[data-find="' + CSS.escape(focused.dataset.find) + '"]';
@@ -405,7 +406,7 @@ function providers() {
     ['objects', '观察物件与布局'],
     ['text', '读英文标牌和按钮']
   ];
-  if (s.local.ollama) p.push(['ollama', '完整场景推理 · 本机 Ollama']);
+  if (s.local.ollama) p.push(['ollama', '结合现场描述推理 · 本机 Ollama']);
   return p;
 }
 
@@ -613,7 +614,9 @@ async function dispatch(act) {
   if (act === 'export') { closeDialog(); return exportCurrent(); }
   if (act === 'cancel-pick') { s.pick = null; render(); return; }
   if (act === 'photo-menu') {
-    showDialog('这张照片', '<div class="photo-menu">' + inline('save', '保存到我的手记', 'bookmark') +
+    const guided = s.mode === 'explore' || s.revealed;
+    const observe = guided && s.rec.analysis && !s.busy ? inline('run-dialog', s.rec.analysis.origin === 'editorial' ? '用 AI 观察' : '重新分析', 'iris') : '';
+    showDialog('这张照片', '<div class="photo-menu">' + observe + inline('save', '保存到我的手记', 'bookmark') +
       inline('export', '导出照片和手记', 'download') + (s.rec.source.kind === 'case' ? inline('photo-info', '照片出处', 'info') : '') + '</div>');
     return;
   }
