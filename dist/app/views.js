@@ -18,55 +18,49 @@ function heading(label, title, lead, action = '') {
   </header>`;
 }
 
-function modes(s) {
-  const choices = [['explore', 'eye', '自由探索'], ['practice', 'pencil', '独立练习']];
-  return `<div class="mode" role="group" aria-label="学习模式">${choices.map(([id, glyph, title]) =>
-    `<button data-mode="${id}" aria-pressed="${s.mode === id}">${icon(glyph, 17)}${title}</button>`).join('')}</div>`;
-}
-
-function subjectHeading(s) {
-  const sample = s.samples.find(item => item.id === s.rec.source.caseId);
-  const context = sample ? sample.collection : '保存在这台设备';
-  return `<header class="subject-heading">
-    <div class="subject-text">
-      <p class="subject-meta"><span class="subject-type">${icon(sample ? 'collection' : 'image', 16)}${sample ? '观察样本' : '我的照片'}</span><span class="meta-divider" aria-hidden="true"></span>${h(context)}</p>
-      <h1>${h(s.rec.title)}</h1>
-    </div>${modes(s)}
-  </header>`;
+function modeControl(s) {
+  const explore = s.mode === 'explore';
+  return `<button class="mode-link" data-mode="${explore ? 'practice' : 'explore'}" aria-label="${explore ? '独立练习' : '自由探索'}">
+    ${icon(explore ? 'pencil' : 'eye', 15)}${explore ? '先自己看' : '自由探索'}</button>`;
 }
 
 export function samplesView(s) {
   return `<section class="sample-section" aria-label="真实照片案例">
-    <div class="section-heading"><h2>换个物件观察</h2></div>
+    <header class="section-heading"><h2>换个物件观察</h2></header>
     <div class="sample-grid">${s.samples.map(p => {
       const current = s.rec.source.caseId === p.id;
-      return `<button class="sample-card" data-case="${h(p.id)}" aria-current="${current}">
-        <span class="sample-image"><img loading="lazy" alt="" src="${h(resource(p.image))}">
-          ${current ? `<span class="sample-current">${icon('check', 14)}当前样本</span>` : ''}
-        </span><span class="sample-meta">${h(p.collection)}</span><strong>${h(p.title)}</strong></button>`;
+      return `<button class="sample-card" data-case="${h(p.id)}" aria-current="${current}" aria-label="${h(p.title)}">
+        <span class="sample-image"><img loading="lazy" alt="" src="${h(resource(p.image))}"></span>
+        <span class="sample-words"><strong>${h(p.shortTitle || p.title)}</strong><small>${h(p.collection)}</small></span>
+        ${current ? `<span class="sample-current" title="正在观察" aria-label="正在观察">${icon('check',13)}</span>` : ''}
+      </button>`;
     }).join('')}</div></section>`;
 }
 
 function photoView(s) {
-  const aiVisible = s.mode === 'explore' || s.revealed;
-  const findings = aiVisible ? s.rec.analysis?.findings || [] : [];
-  const notes = s.rec.notes.some(n => n.point);
-  const hasMarkers = findings.some(f => f.geometry?.points?.length) || notes;
-  const hint = s.pick ? '在照片上选择位置' : !aiVisible ? '先独立观察这张照片' :
-    hasMarkers && s.visible ? '点照片上的编号，读一个细节' : '原始照片';
+  const guided = s.mode === 'explore' || s.revealed;
+  const findings = guided ? s.rec.analysis?.findings || [] : [];
+  const hasMarkers = findings.some(f => f.geometry?.points?.length) || s.rec.notes.some(n => n.point) || s.pendingNotePoint;
+  const sample = s.samples.find(p => p.id === s.rec.source.caseId);
+  const hint = hasMarkers && guided && s.visible ? '点编号看线索' : sample ? sample.collection : '我的照片 · 本机保存';
   const toggleLabel = s.visible ? '隐藏标注' : '显示标注';
+  const glassLabel = s.loupe ? '收起放大镜' : '自由放大原图';
   return `<figure class="plate" aria-label="${h(s.rec.title)}">
-    <div id="image-stage" class="image-stage">
-      <div id="photo-mount" class="photo-mount">
-        <img id="original-photo" fetchpriority="high" src="${h(s.currentUrl)}" alt="${h(s.rec.source.alt || s.rec.title)}">
+    <div id="image-stage" class="image-stage${s.loupe ? ' examining' : ''}">
+      <div id="photo-mount" class="photo-mount" ${s.loupe ? 'tabindex="0" role="group" aria-label="移动放大镜，可用方向键，按 Escape 收起"' : ''}>
+        <img id="original-photo" draggable="false" fetchpriority="high" src="${h(s.currentUrl)}" alt="${h(s.rec.source.alt || s.rec.title)}">
         <svg aria-hidden="true" class="layer" id="geo-layer"></svg><div class="pin-layer" id="pins"></div>
+        ${s.loupe ? `<div class="glass-assembly" aria-hidden="true"><span class="glass-target"></span><span class="glass-stem"></span><span class="glass-window"><img draggable="false" src="${h(s.currentUrl)}" alt=""></span></div>` : ''}
       </div>
       ${s.pick ? `<div class="stage-task" role="status"><span>${h(s.pick.message)}</span>${inline('cancel-pick', '取消', 'close')}</div>` : ''}
+      ${s.loupe ? `<div class="glass-instruction">拖动或轻点原图，查看细节</div>` : ''}
     </div>
     <figcaption class="photo-bar">
-      <span class="photo-hint">${icon(hasMarkers && s.visible && !s.pick ? 'point' : 'image', 18)}<span>${h(hint)}</span></span>
+      <div class="subject-caption"><h1>${h(s.rec.title)}</h1><div class="photo-meta"><span>${h(hint)}</span>
+        <i aria-hidden="true"></i>${modeControl(s)}</div></div>
       <div class="photo-tools">
-        ${(hasMarkers || s.pendingNotePoint) ? `<button class="tool-toggle" data-act="toggle" aria-pressed="${s.visible}" aria-label="${toggleLabel}" title="${toggleLabel}">${icon(s.visible ? 'eye' : 'eyeoff', 19)}<span>${toggleLabel}</span></button>` : ''}
+        <button class="icon-btn" type="button" data-act="loupe" aria-pressed="${!!s.loupe}" aria-label="${glassLabel}" title="${glassLabel}">${icon('search',19)}</button>
+        ${hasMarkers ? `<button class="icon-btn" data-act="toggle" aria-pressed="${s.visible}" aria-label="${toggleLabel}" title="${toggleLabel}">${icon(s.visible ? 'eye' : 'eyeoff', 19)}</button>` : ''}
         ${iconAction('expand', s.expanded ? '退出大图' : '放大查看原图', s.expanded ? 'close' : 'expand')}
         ${iconAction('photo-menu', '保存、导出与照片出处', 'more')}
       </div>
@@ -75,12 +69,13 @@ function photoView(s) {
 }
 
 function lensBar(s, analysis) {
-  const source = s.mode === 'practice' && !s.revealed ? '独立练习' :
-    analysis?.origin === 'editorial' ? '人工导览' : analysis ? 'AI 观察' : '';
+  const blind = s.mode === 'practice' && !s.revealed;
+  const origin = analysis?.origin === 'editorial' ? '人工导览' : 'AI 观察';
   return `<div class="lens-bar">
     <button class="lens-switch" data-act="lens" title="查看或切换观察视角" aria-label="查看或切换观察视角，当前为${h(s.lens.name)}">
-      <span class="lens-symbol">${icon('aperture', 19)}</span>${h(s.lens.name)}${icon('chevron', 14)}
-    </button>${source ? `<span class="origin-label">${source}</span>` : ''}
+      ${icon('iris',18)}${h(s.lens.name)}${icon('chevron',13)}
+    </button>${blind ? '<span class="origin-label">独立练习</span>' : analysis && !s.busy ?
+      `<button class="origin-label" data-act="reading-source" aria-label="${origin}，查看来源与工具">${origin}${icon('info',13)}</button>` : ''}
   </div>`;
 }
 
@@ -122,14 +117,20 @@ function reading(s, f) {
   } else {
     body = visibleClue(f.observation);
   }
-  const local = f.geometry?.points?.length && f.geometry.type !== 'global' && s.layer === 'notice';
-  const tools = s.layer !== 'notice' ? '' : `<div class="reading-actions">
-    ${local ? `<button data-act="detail-photo" class="loupe-button"><span class="crop-window thumb-crop" data-crop-window></span>
-      <span class="loupe-label"><strong>放大细节</strong></span>${icon('zoom',17)}</button>` : ''}
-    <button class="read-on" data-layer="understand" data-forward>为什么这样？${icon('right',16)}</button></div>`;
-  return `<div class="read-tabs" role="group" aria-label="观察层次">${stages.map(({id,label}) =>
-    `<button data-layer="${h(id)}" aria-pressed="${s.layer === id}" aria-controls="reading-text">${h(label)}</button>`).join('')}</div>
-    <div id="reading-text" class="detail-copy">${body}</div>${tools}`;
+  const idx = Math.max(0, stages.findIndex(step => step.id === s.layer));
+  const stage = stages[idx];
+  const next = stages[idx + 1] || stages[0];
+  const actions = {understand: '为什么这样？', investigate: '怎样验证？', transfer: '换件东西试试', notice: '回看线索'};
+  const local = !!f.geometry?.points?.length && f.geometry.type !== 'global' && s.layer === 'notice';
+  const glass = local ? `<button data-act="detail-photo" class="evidence-glass" aria-label="放大细节" title="在原图上放大细节">
+    <span class="crop-window" data-crop-window></span><span class="glass-badge">${icon('zoom',14)}</span></button>` : '';
+  return `<div class="evidence-layout${local ? ' with-glass' : ''}">${glass}<div id="reading-text" class="detail-copy">${body}</div></div>
+    <div class="reading-actions"><button class="read-on" data-layer="${h(next.id)}" data-forward>${h(actions[next.id] || next.label)}</button>
+      <details class="stage-picker"><summary aria-label="观察步骤，当前为${h(stage.label)}"><span class="stage-marks" aria-hidden="true">${stages.map((_,i)=>`<i class="${i===idx?'current':''}"></i>`).join('')}</span>
+        ${h(stage.label)}${icon('chevron',14)}</summary>
+        <div class="stage-options" role="group" aria-label="观察层次">${stages.map(({id,label})=>
+          `<button data-layer="${h(id)}" aria-pressed="${s.layer===id}" aria-controls="reading-text">${h(label)}${s.layer===id?icon('check',14):''}</button>`).join('')}</div>
+      </details></div>`;
 }
 
 function stepButton(target, direction) {
@@ -144,15 +145,12 @@ function focusNote(s, a) {
   const f = a.findings[idx];
   if (!f) return `<div class="reader-content no-evidence"><span class="reader-label">观察结果</span><h2>这张图的线索还不够</h2>
     <p>${h(a.limitation || '请补充能看清细节的照片或现场信息。')}</p>${btn('evidence','补充证据','plus','reader-action')}</div>`;
-  const category = (s.lens.kinds || kindNames)[f.kind] || f.kind;
   return `<div class="reader-content">
-    <div class="step-line"><div class="step-count"><span class="current-number">${indexNumber(idx + 1)}</span><span class="step-total">/ ${indexNumber(a.findings.length)}</span>
-      <span class="kind-label">${h(category)}</span></div>
-      ${a.findings.length > 1 ? `<div class="step-controls">${stepButton(a.findings[idx - 1], 'previous')}${stepButton(a.findings[idx + 1], 'next')}</div>` : ''}
-    </div>
     <h2 class="finding-title" id="finding-title" aria-label="${h(f.notice)}">${questionTitle(f.notice)}</h2>
     ${reading(s, f)}
-  </div>`;
+    <div class="discovery-nav"><span class="clue-count">线索 <b>${indexNumber(idx+1)}</b><span>/</span>${indexNumber(a.findings.length)}</span>
+      ${a.findings.length>1 ? `<div class="step-controls">${stepButton(a.findings[idx-1], 'previous')}${stepButton(a.findings[idx+1], 'next')}</div>` : ''}
+    </div></div>`;
 }
 
 const compareLabels = {
@@ -191,13 +189,16 @@ function analysisEmpty(s) {
     <div>${inline('evidence','补充现场信息','plus')}</div></div>`;
 }
 
-function sourceTools(s, a) {
-  const empty = !a.findings.length;
+export function sourceTools(s) {
+  const a = s.rec.analysis;
+  if (!a) return '';
   const source = a.origin === 'editorial' ? '这份导览由人工根据原图逐项编写。' : `${a.model} · ${new Date(a.at).toLocaleString('zh-CN')}`;
-  return `<div class="reader-utilities"><details class="media-details"><summary>${icon('info', 17)}来源与工具${icon('chevron', 14)}</summary>
-    <div class="tools-content">${paragraphs('这次观察的来源',source)}${!empty ? paragraphs('目前能判断到哪里',a.limitation) : ''}${paragraphs('你的现场描述',a.context)}
-    <div class="actionbar">${empty ? '' : inline('correct','校正位置','pin') + inline('evidence','补充证据','plus')}${s.rec.history.length ? inline('history','历史版本','clock') : ''}</div>
-    </div></details>${inline('run-dialog', a.origin === 'editorial' ? '用 AI 观察' : '重新分析','scan')}</div>`;
+  const f = a.findings.find(x => x.id === s.selected);
+  const category = f && (s.lens.kinds || kindNames)[f.kind];
+  return `<div class="source-content">${paragraphs('观察来源',source)}${paragraphs('这条线索的类型',category)}
+    ${paragraphs('目前能判断到哪里',a.limitation)}${paragraphs('你的现场描述',a.context)}
+    <div class="actionbar">${f ? inline('correct','校正位置','pin') : ''}${inline('evidence','补充证据','plus')}${s.rec.history.length ? inline('history','历史版本','clock') : ''}</div>
+    ${btn('run-dialog',a.origin==='editorial'?'用 AI 观察':'重新分析','scan','btn')}</div>`;
 }
 
 function panelView(s) {
@@ -206,13 +207,12 @@ function panelView(s) {
   const body = blind ? practice(s) : (!a || s.busy ? analysisEmpty(s) : focusNote(s, a));
   return `<aside class="panel" id="inspector" aria-label="观察详情">
     <div class="reader">${lensBar(s,a)}${s.error ? `<div class="notice error" role="alert">${h(s.error)}${inline('run-dialog','更换方式并重试','adjust')}</div>` : ''}${body}</div>
-    ${!blind && a && !s.busy ? sourceTools(s,a) : ''}
     ${s.mode === 'practice' && s.revealed ? comparison(s) : ''}
   </aside>`;
 }
 
 export function studio(s) {
-  return subjectHeading(s) + `<div class="studio-grid">${photoView(s)}${panelView(s)}</div>` + samplesView(s);
+  return `<div class="studio-grid">${photoView(s)}${panelView(s)}</div>` + samplesView(s);
 }
 
 export function libraryView(records, thumbs) {

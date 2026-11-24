@@ -1,4 +1,6 @@
 const shapes = {
+  menu: '<path d="M3 8h18M3 16h18"/>',
+  iris: '<circle cx="12" cy="12" r="9.7"/><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="2.9" fill="currentColor" stroke="none"/>',
   collection: '<rect x="4" y="5" width="15" height="14" rx="2"/><path d="M8 2h12a2 2 0 0 1 2 2v11M7 15l3-4 3 3 2-2 2 3"/>',
   left: '<path d="m14.5 5-7 7 7 7"/>',
   right: '<path d="m9.5 5 7 7-7 7"/>',

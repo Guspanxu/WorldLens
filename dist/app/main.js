@@ -3,6 +3,7 @@ import {
   copy,
   createRecord,
   cleanGeometry,
+  anchor,
   dims,
   geometryNames,
   freshId,
@@ -34,11 +35,11 @@ import {
 } from './icons.js';
 import {
   detachCanvas,
-  attachCanvas,
-  refreshDetailCrops
+  attachCanvas
 } from './annotations.js';
 import {
   studio,
+  sourceTools,
   libraryView,
   guideView,
   btn,
@@ -54,6 +55,7 @@ const s = {
   revealed: false,
   visible: true,
   expanded: false,
+  loupe: null,
   selected: null,
   layer: 'notice',
   rec: null,
@@ -184,10 +186,10 @@ function render(track = true) {
   let restore = null;
   if (focused instanceof HTMLButtonElement && app.contains(focused)) {
     if (focused.dataset.step) restore = '[data-step="' + focused.dataset.step + '"]:not(:disabled)';
-    else if (focused.dataset.layer) restore = '[data-layer="' + focused.dataset.layer + '"]';
-    else if (focused.dataset.mode) restore = '[data-mode="' + focused.dataset.mode + '"]';
+    else if (focused.dataset.layer) restore = '.stage-picker summary';
+    else if (focused.dataset.mode) restore = '.mode-link';
     else if (focused.matches('.pin-dot[data-find]')) restore = '.pin-dot[data-find="' + CSS.escape(focused.dataset.find) + '"]';
-    else if (['toggle', 'expand'].includes(focused.dataset.act)) restore = '[data-act="' + focused.dataset.act + '"]';
+    else if (['toggle', 'expand','loupe'].includes(focused.dataset.act)) restore = '[data-act="' + focused.dataset.act + '"]';
   }
   navPaint();
   if (s.view === 'studio') {
@@ -211,6 +213,7 @@ async function navigate(view, scroll = true) {
   if (!['studio', 'guide', 'library'].includes(view)) view = 'studio';
   trackDraft();
   s.expanded = false;
+  s.loupe = null;
   s.pick = null;
   if (view === 'library') {
     if (s.persisted || s.rec.notes.length || s.rec.source.kind === 'user') await persist();
@@ -254,6 +257,7 @@ async function settleRecord() {
   epoch++;
   releasePhotos();
   s.expanded = false;
+  s.loupe = null;
   s.pick = null;
   s.pendingNotePoint = null;
   s.error = '';
@@ -317,14 +321,15 @@ function selectFinding(id, fromPhoto = false) {
   const f = s.rec.analysis?.findings.find(f => f.id === id);
   if (!f) return;
   s.selected = id;
+  s.loupe = null;
   s.layer = 'notice';
   s.pick = null;
   if (fromPhoto) s.expanded = false;
   render();
-  if (fromPhoto && window.innerWidth <= 820) {
+  if (fromPhoto && window.innerWidth <= 800) {
     const copy = $('#reading-text');
     if (!copy) return;
-    const bottomInset = window.innerWidth <= 640 ? $('.main-nav').offsetHeight + 10 : 12;
+    const bottomInset = 15;
     const overflow = copy.getBoundingClientRect().bottom - window.innerHeight + bottomInset;
     const keepPhoto = $('#image-stage').getBoundingClientRect().bottom - Math.min(135, window.innerHeight * .2);
     const shift = Math.min(overflow, keepPhoto);
@@ -397,8 +402,8 @@ async function takePhoto(file, extra = false) {
 
 function providers() {
   const p = [
-    ['objects', '物件与布局 · 视觉语言模型'],
-    ['text', '文字线索 · 轻量，本机']
+    ['objects', '观察物件与布局'],
+    ['text', '读英文标牌和按钮']
   ];
   if (s.local.ollama) p.push(['ollama', '完整场景推理 · 本机 Ollama']);
   return p;
@@ -406,15 +411,21 @@ function providers() {
 
 function runDialog() {
   if (s.busy) return;
-  const p = providers();
-  const desc = {
-    text: '适合有英文操作词或指示牌的照片。约 8 MB 的文字模型随工具提供，照片在设备上处理。',
-    objects: 'OWL-ViT 会用照片和文字共同查找可定位部件。首次从 Hugging Face 和 jsDelivr 下载约 155 MB 权重及运行组件。照片在设备上处理。',
-    ollama: '主图、最多两张补图和你的现场描述会交给这台电脑上运行的 Ollama。'
+  const options = providers();
+  const descriptions = {
+    objects: '寻找照片中的部件，看看它们的位置怎样影响使用。首次需下载约 155 MB 的模型，照片在这台设备上处理。',
+    text: '寻找英文标牌或按键上的操作提示。约 8 MB 的文字模型在这台设备上读取照片。',
+    ollama: '把原图、最多两张补图和现场描述交给这台电脑上的 Ollama，一起解释场景。'
   };
-  showDialog('选择观察方式', '<div class="field"><label for="provider">分析引擎</label><select id="provider">' + p.map(([id, name]) => '<option value="' + id + '" ' + (s.provider === id ? 'selected' : '') + '>' + h(name) + '</option>').join('') + '</select><p id="provider-help" class="hint">' + h(desc[s.provider] || desc.text) + '</p></div><div class="field"><label for="run-context">现场描述 <small>可选</small></label><textarea id="run-context" rows="2" maxlength="1800" placeholder="例如：我按了一次，灯过了一秒才亮。">' + h(s.rec.context) + '</textarea></div>' + btn('run', '开始分析', 'scan', 'btn'));
+  const selected = options.some(([id]) => id===s.provider) ? s.provider : options[0][0];
+  const choices = options.map(([id,name]) => '<option value="'+id+'" '+(selected===id?'selected':'')+'>'+h(name)+'</option>').join('');
+  showDialog('用'+h(s.lens.name)+'观察', '<p id="provider-help">'+h(descriptions[selected])+'</p>'+
+    '<details class="run-options"><summary>更换观察方式或补充现场信息'+icon('chevron',15)+'</summary>'+
+    '<div class="field"><label for="provider">观察方式</label><select id="provider">'+choices+'</select></div>'+
+    '<div class="field"><label for="run-context">现场描述 <small>可选</small></label><textarea id="run-context" rows="2" maxlength="1800" placeholder="我按了一次，灯过了一秒才亮。">'+h(s.rec.context)+'</textarea></div></details>'+
+    btn('run','开始观察','', 'btn'));
   $('#provider').onchange = e => {
-    $('#provider-help').textContent = desc[e.target.value]
+    $('#provider-help').textContent = descriptions[e.target.value];
   };
 }
 async function run() {
@@ -424,6 +435,7 @@ async function run() {
   closeDialog();
   s.revealed = true;
   s.pick = null;
+  s.loupe = null;
   s.error = '';
   s.busy = true;
   s.status = '正在准备照片…';
@@ -478,6 +490,7 @@ function selectedFinding() {
 }
 
 function setPick(type, purpose) {
+  s.loupe = null;
   let count = type === 'structure' ? 4 : dims[type][0];
   const hints = {
     point: '点一下要标记的位置',
@@ -584,11 +597,13 @@ async function dispatch(act) {
     return
   }
   if (act === 'toggle') {
+    s.loupe = null;
     s.visible = !s.visible;
     render();
     return
   }
   if (act === 'expand') {
+    s.loupe = null;
     s.expanded = !s.expanded;
     render();
     return
@@ -602,12 +617,28 @@ async function dispatch(act) {
       inline('export', '导出照片和手记', 'download') + (s.rec.source.kind === 'case' ? inline('photo-info', '照片出处', 'info') : '') + '</div>');
     return;
   }
-  if (act === 'detail-photo') {
-    const f = selectedFinding();
-    if (!f?.geometry?.points?.length) return;
-    showDialog('原图局部', '<div class="crop-window crop-modal" data-crop-window role="img" aria-label="' +
-      '原图局部，' + h(f.notice) + '"></div><p class="crop-description">' + h(f.observation) + '</p>');
-    refreshDetailCrops(s);
+  if (act === 'detail-photo' || act === 'loupe') {
+    if (act === 'loupe' && s.loupe) {
+      s.loupe = null;
+      render();
+      document.querySelector('[data-act="loupe"]')?.focus({preventScroll:true});
+      return;
+    }
+    const canSee = s.mode === 'explore' || s.revealed;
+    const geometry = canSee && (act === 'detail-photo' || s.visible) ? selectedFinding()?.geometry : null;
+    s.loupe = geometry?.type === 'relationship' ? [...geometry.points[0]] : anchor(geometry) || [.5,.5];
+    s.pick = null;
+    render();
+    const mount = $('#photo-mount');
+    mount?.focus({preventScroll:true});
+    if (act === 'detail-photo' && window.innerWidth <= 800) $('#image-stage')?.scrollIntoView({block:'center'});
+    return;
+  }
+  if (act === 'reading-source' && s.rec.analysis) return showDialog('这次观察',sourceTools(s));
+  if (act === 'site-menu') {
+    const items = [['studio','iris','观察室'],['library','note','我的手记'],['guide','book','视角指南']];
+    showDialog('导航','<nav class="photo-menu" aria-label="网站导航">'+items.map(([view,glyph,name]) =>
+      '<button type="button" data-view="'+view+'" class="text-btn">'+icon(glyph)+name+'</button>').join('')+'</nav>');
     return;
   }
   if (act === 'privacy') return showPrivacy();
@@ -727,6 +758,8 @@ async function dispatch(act) {
   }
 }
 document.addEventListener('click', async e => {
+  const steps = document.querySelector('.stage-picker[open]');
+  if (steps && !steps.contains(e.target)) steps.open = false;
   if (clickPhoto(e)) return;
   const b = e.target.closest('button,a.brand');
   if (!b) return;
@@ -741,6 +774,7 @@ document.addEventListener('click', async e => {
       return
     }
     if (b.dataset.view) {
+      if (modal.open) closeDialog();
       s.guideConcept = null;
       await navigate(b.dataset.view);
       return
@@ -752,6 +786,7 @@ document.addEventListener('click', async e => {
       }
       trackDraft();
       s.mode = b.dataset.mode;
+      s.loupe = null;
       s.revealed = false;
       s.pick = null;
       s.pendingNotePoint = null;
@@ -877,7 +912,15 @@ modal.onclick = e => {
 };
 window.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !modal.open) {
-    if (s.pick) {
+    if (s.loupe) {
+      s.loupe = null;
+      render();
+      document.querySelector('[data-act="loupe"]')?.focus({preventScroll:true});
+    } else if (document.querySelector('.stage-picker[open]')) {
+      const menu = document.querySelector('.stage-picker');
+      menu.open = false;
+      menu.querySelector('summary').focus();
+    } else if (s.pick) {
       s.pick = null;
       render()
     } else if (s.expanded) {

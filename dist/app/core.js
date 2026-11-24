@@ -141,6 +141,20 @@ export function pointerPosition(clientX, clientY, rect) {
   return [clamp((clientX - rect.left) / rect.width), clamp((clientY - rect.top) / rect.height)];
 }
 
+// The target stays in original-photo coordinates. Only the floating glass moves to fit the frame.
+export function loupeFrame(point, width, height) {
+  if (!Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite) ||
+      ![width,height].every(v => Number.isFinite(v) && v > 0)) return null;
+  const size = Math.min(width * .40, height * .60, 168);
+  const radius = size / 2, zoom = 2.5;
+  const x = clamp(point[0]) * width, y = clamp(point[1]) * height;
+  const bound = (v, limit) => Math.min(limit - radius, Math.max(radius, v));
+  const cx = bound(x, width);
+  const distance = radius + Math.min(19, height * .07);
+  const cy = bound(y - distance, height);
+  return {x, y, cx, cy, size, zoom, imageX: radius - x * zoom, imageY: radius - y * zoom};
+}
+
 // Fit every selected evidence point in the close-up, including points on a photo edge.
 export function detailFrame(geometry, imageWidth, imageHeight, width, height) {
   if (!geometry?.points?.length || geometry.type === 'global' ||
