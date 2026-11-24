@@ -22,9 +22,11 @@ jobs:
           node-version: '22'
       - name: Test WorldLens
         run: npm test
+      - name: Package versioned website assets
+        run: npm run pages
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: artifacts/pages
 
   deploy:
     needs: build

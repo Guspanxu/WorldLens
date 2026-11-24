@@ -24,7 +24,7 @@ npm start
 
 打开 [本机观察室](http://127.0.0.1:4173)。关闭终端中的服务可按 Ctrl+C。若端口已占用，可运行 `PORT=4273 npm start`。
 
-静态网站文件全部在 `dist/`。此仓库更新 `main` 后，GitHub Actions 会运行测试，再将该目录发布到 GitHub Pages。也可以将 `dist/` 原样发布到其他 HTTPS 静态网站主机。导出的 JSON 包含个人原图，请按照片本身的隐私程度保管。
+静态网站文件全部在 `dist/`。此仓库更新 `main` 后，GitHub Actions 会运行测试，再运行 npm run pages，将带同一版本标记的脚本、文字与样式发布到 GitHub Pages。也可以将 `dist/` 原样发布到其他 HTTPS 静态网站主机。导出的 JSON 包含个人原图，请按照片本身的隐私程度保管。
 
 ```sh
 npm test

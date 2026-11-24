@@ -31,6 +31,7 @@ const types = {
   '.jpeg': 'image/jpeg',
   '.webp': 'image/webp',
   '.svg': 'image/svg+xml',
+  '.ttf': 'font/ttf',
   '.wasm': 'application/wasm'
 };
 const model = process.env.WORLDLENS_OLLAMA_MODEL || '';
