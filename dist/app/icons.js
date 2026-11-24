@@ -1,0 +1,39 @@
+const shapes = {
+  aperture: '<circle cx="12" cy="12" r="9.5"/><path d="m13.5 3 5 8.5M21 13l-10 .1M16 20.7l-5.1-8.8M6.5 19.5l5-8.7M2.7 10.3l10 .1M8 3.5l5.1 8.7"/>',
+  scan: '<path d="M4 9V4h5m6 0h5v5m0 6v5h-5m-6 0H4v-5"/><circle cx="12" cy="12" r="2"/>',
+  book: '<path d="M4 4.8c3.3-1.2 5.8-.7 8 1.2 2.2-1.9 4.7-2.4 8-1.2v14.5c-3.2-1.1-5.8-.5-8 1.1-2.2-1.6-4.8-2.2-8-1.1zM12 6v14"/>',
+  layers: '<path d="m3 8 9-5 9 5-9 5zm0 4 9 5 9-5M3 16l9 5 9-5"/>',
+  note: '<path d="M5 3.5h12a2 2 0 0 1 2 2v15H7a2 2 0 0 1-2-2zm0 13h14M8.5 7h6m-6 3h4"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  share: '<path d="M8 10H5v11h14V10h-3M12 15V3m-4 4 4-4 4 4"/>',
+  eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="2.8"/>',
+  eyeoff: '<path d="m3 3 18 18M9 5.5c1-.3 2-.5 3-.5 6.4 0 10 7 10 7a22 22 0 0 1-3.1 3.8M6.2 6.7A21 21 0 0 0 2 12s3.6 7 10 7a12 12 0 0 0 5-1.2"/>',
+  expand: '<path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/>',
+  pencil: '<path d="m4 16-1 5 5-1L20 8l-4-4zm10-10 4 4"/><path d="m16 4 1.5-1.5a1.4 1.4 0 0 1 2 0l2 2a1.4 1.4 0 0 1 0 2L20 8"/>',
+  upload: '<path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5"/>',
+  camera: '<path d="M3 7h4l2-3h6l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/>',
+  chevron: '<path d="m7 10 5 5 5-5"/>',
+  close: '<path d="m6 6 12 12M18 6 6 18"/>',
+  bookmark: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+  download: '<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/>',
+  check: '<path d="m4 12 5 5L20 6"/>',
+  pin: '<path d="M12 22s7-7.5 7-13a7 7 0 0 0-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/>',
+  image: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.6"/><path d="m4 18 5-5 3 3 4-6 5 7"/>',
+  adjust: '<path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+  lock: '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+  search: '<circle cx="10" cy="10" r="6"/><path d="m14.5 14.5 5.5 5.5"/>',
+  point: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="1.4"/>',
+  contrast: '<circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17m0-17A8.5 8.5 0 0 1 12 20.5" fill="currentColor"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.5"/>',
+  compass: '<circle cx="12" cy="12" r="9"/><path d="m16.5 7.5-3 6-6 3 3-6z"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>',
+  trash: '<path d="M3 6h18M8 6V3h8v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/>'
+};
+export const icon = (name, size = 18) => '<svg aria-hidden="true" class="icon" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">' + (shapes[name] || '') + '</svg>';
+export const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+} [c]));

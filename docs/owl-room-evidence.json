@@ -1,0 +1,27 @@
+{
+  "capturedDate": "2026-11-24",
+  "protocol": "Public Web AI Showcase page, built-in photo, manually entered project queries, CPU WebAssembly in Chrome. Score and box values transcribed from the rendered table. The page rounds scores to tenths of a percent and coordinates to whole pixels.",
+  "runtimePage": "https://webai.show/models/owlvit-detection/",
+  "model": "Xenova/owlvit-base-patch32",
+  "quantization": "q8",
+  "photo": {
+    "name": "Winchester Mystery House bedroom with massive headboard.jpg",
+    "creator": "Sgerbic",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Winchester_Mystery_House_bedroom_with_massive_headboard.jpg",
+    "width": 512,
+    "height": 386,
+    "dimensionsNote": "Pixel dimensions of the sample inference/render canvas, not the full-resolution Commons original."
+  },
+  "queries": ["a chair", "a drawer pull", "a wall clock", "a door handle", "a light switch", "a coffee cup"],
+  "threshold": 0.10,
+  "latencyMs": 10373,
+  "candidatesBeforeUiThreshold": 169,
+  "detections": [
+    {"label":"a chair", "score":0.300, "box":{"xmin":382,"ymin":198,"xmax":509,"ymax":312}},
+    {"label":"a chair", "score":0.147, "box":{"xmin":385,"ymin":204,"xmax":434,"ymax":285}},
+    {"label":"a chair", "score":0.136, "box":{"xmin":300,"ymin":228,"xmax":363,"ymax":316}}
+  ],
+  "visuallyReviewed": "The strongest box contains the upholstered, backed seating at right. Its distinction as a chair versus a small sofa is unresolved. The second overlaps that seat. The third covers wooden furniture beside the bed; its seat identity is uncertain. None of the other five text queries cleared 0.10.",
+  "scope": "A genuine run on an external page with a subset of identical project labels. It can verify the project adapter on recorded model output but is not an end-to-end WorldLens run."
+}

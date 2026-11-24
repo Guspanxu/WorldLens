@@ -1,0 +1,249 @@
+{
+  "profiles": [
+    {
+      "id": "handle",
+      "query": "a door handle",
+      "name": "门把手",
+      "concept": "signifier",
+      "notice": "从哪一侧伸手？",
+      "interpretation": "把手让握持成为一个值得尝试的动作。手是否能伸进去、门往哪边开，需要其他证据。",
+      "check": "从侧面看手柄与门板的距离，再观察门上是否另有方向标志。",
+      "transfer": "换一扇没有文字提示的门，先预测手会放在哪里。"
+    },
+    {
+      "id": "knob",
+      "query": "a round control knob",
+      "name": "旋钮",
+      "concept": "mapping",
+      "notice": "转动之后，哪里会变？",
+      "interpretation": "旋钮的外形可以提示旋转动作。要预测它控制什么，还要找刻度、邻近的对象或位置对应。",
+      "check": "在操作前指出预计变化的对象，再在正常使用中比较结果。",
+      "transfer": "换到灶台或音箱，看同一种旋转动作怎样对应不同的效果。"
+    },
+    {
+      "id": "button",
+      "query": "a push button",
+      "name": "按钮",
+      "concept": "discoverability",
+      "notice": "第一下会按哪里？",
+      "interpretation": "按键外观可能帮助人找到动作入口。静态外观能否进一步说明按下的结果，取决于旁边的文字、图形与情境。",
+      "check": "遮住文字，先说出预期，再把文字放回来比较两次预测。",
+      "transfer": "找另一台有相似按钮的设备，预测其作用并核对。"
+    },
+    {
+      "id": "switch",
+      "query": "a light switch",
+      "name": "开关",
+      "concept": "mapping",
+      "notice": "这个开关管哪一处？",
+      "interpretation": "开关是控制端。要判断人与设备之间的对应是否清楚，还需要把受控对象放进同一个观察范围。",
+      "check": "把开关和可能受控的设备拍在同一画面，事前预测对应关系。",
+      "transfer": "观察一排会议室灯的控制面板，先画出你的预测。"
+    },
+    {
+      "id": "dial",
+      "query": "a rotary telephone dial",
+      "name": "拨号盘",
+      "concept": "constraints",
+      "notice": "手指要沿哪条路走？",
+      "interpretation": "圆形拨盘可能组织选择位置和手指运动的顺序。照片不足以说明转动阻力、回位和动作终点。",
+      "check": "在实物上找出手指起点和停点，观察松手后发生什么。",
+      "transfer": "在带挡位的转盘上比较，哪些动作由形状限定？"
+    },
+    {
+      "id": "keyboard",
+      "query": "a computer keyboard",
+      "name": "键盘",
+      "concept": "knowledge",
+      "notice": "哪些信息留在键面？",
+      "interpretation": "按键的排列与可辨认的标记可以为选择动作提供外部线索。熟练者还可能依靠记忆。",
+      "check": "比较看键面和遮住键面时，寻找同一个不常用符号的过程。",
+      "transfer": "在陌生布局的售票机上找同样的记忆与线索分工。"
+    },
+    {
+      "id": "lever",
+      "query": "a lever handle",
+      "name": "杠杆状手柄",
+      "concept": "affordance",
+      "notice": "这个形状给手留了什么位置？",
+      "interpretation": "突出的形状可能允许手指围绕它施力。需要知道手的大小、接近方向以及部件是否可动。",
+      "check": "补一张侧视图，检查可接近的空间。",
+      "transfer": "在水龙头或抽屉上，比较握持与按压所需的条件。"
+    },
+    {
+      "id": "screen",
+      "query": "a display screen",
+      "name": "显示屏",
+      "concept": "feedback",
+      "notice": "画面告诉你的是哪个时刻？",
+      "interpretation": "屏幕可呈现状态。要把它解释为对某项操作的反馈，还需要观察操作与显示变化的先后关系。",
+      "check": "记录一次正常操作前后显示了什么，核对变化是否对应动作。",
+      "transfer": "在电梯显示屏上区分当前状态与对按键的回应。"
+    },
+    {
+      "id": "sign",
+      "query": "a sign with written directions",
+      "name": "文字标牌",
+      "concept": "signifier",
+      "notice": "字样离要做的动作有多远？",
+      "interpretation": "标牌可能把操作知识放到环境中。它是否能指导动作，取决于可读性、放置位置和实际任务。",
+      "check": "站在作决定的位置拍一张照片，检查能否看见和读清标牌。",
+      "transfer": "在另一个路口或门厅重复这项检查。"
+    },
+    {
+      "id": "spout",
+      "query": "a pouring spout on a kettle",
+      "name": "壶嘴",
+      "concept": "conceptual-model",
+      "notice": "你预测水会从哪里出来？",
+      "interpretation": "壶嘴可能支持一条关于水流路径的预测。仅凭外形无法确定内部通道、流速或防漏表现。",
+      "check": "先画出预计的流向；在安全的日常使用中，用冷水核对。",
+      "transfer": "换到浇花壶，看哪些外部证据支持同样的预测。"
+    },
+    {
+      "id": "grip",
+      "query": "a cup handle",
+      "name": "杯柄",
+      "concept": "affordance",
+      "notice": "哪几根手指有空间？",
+      "interpretation": "杯柄的轮廓提供关于握持方式的线索。实际握持还受到尺寸、重量与人的动作能力制约。",
+      "check": "把合适的尺度加入侧面照片，比较戴手套前后的可用空间。",
+      "transfer": "在抽屉把手上重复这一观察。"
+    },
+    {
+      "id": "traffic",
+      "query": "a traffic signal light",
+      "name": "交通信号灯",
+      "concept": "knowledge",
+      "notice": "远处的人能读出什么？",
+      "interpretation": "人可能同时利用位置、色彩与约定来辨别信号。单帧无法给出变化顺序或判断所有人的可读性。",
+      "check": "在安全位置观察完整周期，区分固定位置和状态变化。",
+      "transfer": "到公共交通站台，看位置与文字如何一起指路。"
+    },
+    {
+      "id": "rail",
+      "query": "a handrail",
+      "name": "扶手",
+      "concept": "affordance",
+      "notice": "从这个位置够得着吗？",
+      "interpretation": "连续的杆件可能支持抓握。可达高度、粗细与手部能力都会改变这种可能性。",
+      "check": "补一个带尺度的侧视角，检查路径上可接近的位置。",
+      "transfer": "换到公共汽车的扶手，把同样的问题带过去。"
+    },
+    {
+      "id": "drawer",
+      "query": "a drawer pull",
+      "name": "抽屉拉手",
+      "concept": "signifier",
+      "notice": "手会向哪个方向用力？",
+      "interpretation": "突出部件可能让人想到拉动。可见线索与实际可行方向需要分别确认。",
+      "check": "在人实际站立的位置预测动作，再核实部件的运动方向。",
+      "transfer": "观察电器把手能否产生相同的预期。"
+    },
+    {
+      "id": "cup",
+      "query": "a coffee cup",
+      "name": "杯子",
+      "concept": "affordance",
+      "notice": "你会从哪里拿起这只杯？",
+      "interpretation": "杯身轮廓给出了一个拿取目标。画面还需要给出握持部位、可接近的空间和尺度，才能判断握法。",
+      "check": "先指给另一人看预计的握持位置，再用空杯观察实际接触部位。",
+      "transfer": "换一个无柄的杯子，哪些线索改变了你的预测？"
+    },
+    {
+      "id": "spoon",
+      "query": "a spoon",
+      "name": "匙",
+      "concept": "constraints",
+      "notice": "手从哪个方向能取到匙？",
+      "interpretation": "匙的外形可以提示哪端用手拿。周围物件能否挡住手，还取决于距离和接近方向。",
+      "check": "从实际就坐的位置看，哪一端最容易接近？转动碟子后比较。",
+      "transfer": "在工具盘上找一件必须先移动相邻物品才能取出的工具。"
+    },
+    {
+      "id": "seat",
+      "query": "a chair",
+      "name": "椅子",
+      "concept": "affordance",
+      "notice": "从哪里才能坐进去？",
+      "interpretation": "认出座椅只是起点。可接近的方向、椅面高度和旁边的空间会一起影响人的动作。",
+      "check": "补拍侧面，再请坐者指出进入和离开所需的空间。",
+      "transfer": "在公交站和咖啡店比较同样的坐姿需要哪些不同条件。"
+    },
+    {
+      "id": "camera",
+      "query": "a camera",
+      "name": "相机",
+      "concept": "discoverability",
+      "notice": "能看出人的眼睛应靠近哪里吗？",
+      "interpretation": "相机需要让人找到观察与控制的位置。当前视角可能只露出机身的一面，尚不足以判断整个操作过程。",
+      "check": "让初次使用者先预测取景的位置，再检查相机另一侧的线索。",
+      "transfer": "换成双筒望远镜，观察你依据了哪些相同线索。"
+    },
+    {
+      "id": "tripod",
+      "query": "a tripod",
+      "name": "三脚架",
+      "concept": "trade-offs",
+      "notice": "支撑要占据多少空间？",
+      "interpretation": "展开的支架可能改变工具与身体的相对位置。它对使用和通行的影响还取决于展开范围。",
+      "check": "补一张看得见支脚末端的全景，在地面描出使用范围。",
+      "transfer": "观察晾衣架或乐谱架的展开与收起。"
+    },
+    {
+      "id": "clock",
+      "query": "a wall clock",
+      "name": "钟表",
+      "concept": "knowledge",
+      "notice": "从平常站的位置能读出什么？",
+      "interpretation": "钟面可能把读数需要的信息放在环境中。观察距离、光线和可辨认的刻度会影响读法。",
+      "check": "从实际距离分别记录能辨认的形状、指针与数字。",
+      "transfer": "找另一种读数装置，把距离作为唯一变化的条件比较。"
+    }
+  ],
+  "background": [
+    "a tree",
+    "a flower",
+    "a cloud",
+    "a blank wall",
+    "a human face",
+    "an animal"
+  ],
+  "pairs": [
+    {
+      "ids": [
+        "cup",
+        "spoon"
+      ],
+      "title": "杯和匙的摆放，给手留了多少空间？",
+      "interpretation": "两个物件的位置可以提示应向哪一侧伸手。它们是配套摆放还是偶然相邻，要看是否共享承载面以及实际使用。",
+      "check": "从正常使用者的方向指明两种取物路线，观察是否会碰到另一个物件。",
+      "transfer": "在桌上摆放一把剪刀和一卷胶带，检验接近路线是否互相干扰。",
+      "concept": "constraints"
+    },
+    {
+      "ids": [
+        "camera",
+        "tripod"
+      ],
+      "title": "人的视线与支撑高度怎样对应？",
+      "interpretation": "支撑件和观察端的位置可能共同影响姿势。当前图像不足以确认二者已经连接，或高度是否合适。",
+      "check": "补拍连接处及使用者视线，记录观察端到地面的高度。",
+      "transfer": "到固定高度的公共显示屏前，检查站立位置与可读范围。",
+      "concept": "affordance"
+    }
+  ],
+  "textProfile": {
+    "pattern": "(?:\\b(?:push|pull|open|close|exit|enter|stop|start|press|turn|on|off|reset|lock|unlock|power|max|min|volume|temperature|hot|cold|tryck|drag|öppna|stäng|utgång|stopp|electri[a-z]*|gas|diesel)\\b|推|拉|开门|关门|出口|入口|按下|开关)",
+    "kind": "detail",
+    "conceptIds": [
+      "signifier",
+      "knowledge"
+    ],
+    "interpretation": "字样把一部分知识放在了物体表面。它能否指导动作，还要看读者在做决定时能不能看见，以及能否找出它指向的部件。",
+    "hypothesis": "换一个站立位置，读者可能把这条线索对应到不同的对象。",
+    "unknown": "当前画面没有证实文字准确、每位读者都能理解，或实际动作一定成功。",
+    "check": "指给另一人看文字对应的部位。请对方从正常接近的方向独立指出一次，比较两人的选择。",
+    "transfer": "找另一个带标识的物件，遮住文字，写下预测；揭开后记录哪一点改变了判断。"
+  }
+}

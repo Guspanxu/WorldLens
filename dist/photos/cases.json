@@ -1,0 +1,286 @@
+[
+  {
+    "id": "dialog",
+    "title": "瑞典 Dialog 拨号电话",
+    "collection": "通讯器物 · 瑞典",
+    "image": "photos/dialog.jpg",
+    "color": "#c7ab86",
+    "credit": "Holger Ellgaard · Wikimedia Commons",
+    "license": "Dialog röd，2009。CC BY-SA 3.0。照片按原文件呈现；交互标注独立叠加。",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Dialog_r%C3%B6d.jpg",
+    "alt": "一部红色 Dialog 电话，手柄横放在顶端，中间是透明圆盘和数字，左边是卷曲的电话线。",
+    "lensId": "designer",
+    "date": "2026-11-24",
+    "limitation": "照片记录了部件外观。拨盘是否回位、挡片能否限制动作、听筒拿起后的线路状态，需要操作后核实。",
+    "findings": [
+      {
+        "id": "f1",
+        "kind": "detail",
+        "notice": "透明圆盘旁，为什么多出一小块金属？",
+        "observation": "拨盘右下方有一块向上突起的金属片，正好靠近一圈指孔的边缘。",
+        "interpretation": "如果手指随圆盘移动，这块固定凸起有可能为动作提供一个可感觉到的终点，省去记住“要转多远”的步骤。",
+        "hypothesis": "从不同的孔开始转动，手指可能最终碰到同一挡片。",
+        "unknown": "照片无法确定圆盘是否可动、挡片是否固定，也无法确认松手后会发生什么。",
+        "check": "在可以正常操作的实物上，先预测手指的路径，再选择两个不同的孔分别试一次，比较终点。",
+        "transfer": "去看一个有机械尽头的旋钮。蒙住刻度时，你还能凭触觉判断哪项信息？",
+        "conceptIds": [
+          "constraints",
+          "knowledge"
+        ],
+        "geometry": {
+          "type": "point",
+          "points": [
+            [
+              0.594,
+              0.678
+            ]
+          ]
+        }
+      },
+      {
+        "id": "f2",
+        "kind": "question",
+        "notice": "数字和指孔，怎样配成一对？",
+        "observation": "数字印在内圈，透明圆孔排在外圈。「2」和它外侧的圆孔之间留有一段间距。",
+        "interpretation": "使用者需要把一个符号对应到一个可操作的位置。沿半径对齐是可能的读法，可以用另一个数字检查这种读法能否重复。",
+        "hypothesis": "从正面看时，数字与孔的对应可能比从侧面更容易判断。",
+        "unknown": "一张正面照片不能告诉我们初次使用者会选对哪个孔。",
+        "check": "先请没用过这种电话的人只指出数字 2 对应的孔，再换 5。记录对方依据了什么线索。",
+        "transfer": "把同样的问题带到一排灯开关前。你能从位置预测哪个开关对应哪盏灯吗？",
+        "conceptIds": [
+          "mapping",
+          "discoverability"
+        ],
+        "geometry": {
+          "type": "relationship",
+          "points": [
+            [
+              0.549,
+              0.433
+            ],
+            [
+              0.562,
+              0.382
+            ]
+          ]
+        }
+      },
+      {
+        "id": "f3",
+        "kind": "good",
+        "notice": "听筒中间，给手留下了什么？",
+        "observation": "听筒横放在机身上方，中段较窄，中段下方露出一道空隙，两端比中段宽。",
+        "interpretation": "对一只能够伸进空隙的手，这个形状可能同时支持握持，并提示先拿哪里。可见的提示与实际能否握住需要分开判断。",
+        "hypothesis": "不同手型或戴手套的人，可能用不同方式接近同一处。",
+        "unknown": "照片没有提供空隙深度、重量，也没有手实际握持的证据。",
+        "check": "补拍听筒的侧面并放入尺度；若可接触实物，观察不同握法分别需要多大空间。",
+        "transfer": "在杯柄和抽屉把手上，分别找出“让我想握住”的线索与“我的手握得住”的条件。",
+        "conceptIds": [
+          "affordance",
+          "signifier"
+        ],
+        "geometry": {
+          "type": "point",
+          "points": [
+            [
+              0.52,
+              0.208
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "espresso",
+    "title": "一只浓缩咖啡杯",
+    "collection": "日用器物 · 咖啡馆",
+    "image": "photos/coffee.png",
+    "color": "#66391e",
+    "credit": "Rachel Michetti · Pikolo Espresso Bar",
+    "license": "CC0 1.0，摄影者开放使用。",
+    "source": "https://scikit-image.org/docs/0.25.x/api/skimage.data.html#skimage.data.coffee",
+    "alt": "木桌上的红色浓缩咖啡杯和碟子，杯柄靠左下，右侧有一把金属匙。",
+    "lensId": "designer",
+    "date": "2026-11-24",
+    "limitation": "从图中可辨认形状和位置。温度、重量、握持舒适度与使用者的惯用手尚待核实。",
+    "findings": [
+      {
+        "id": "f1",
+        "kind": "detail",
+        "notice": "杯柄里，究竟能放进几根手指？",
+        "observation": "杯身左下伸出一个环状杯柄。从这个角度看，柄内有一道窄缝。",
+        "interpretation": "轮廓提示人可以从这里拿杯子。实际能穿进几根手指，取决于手、开口尺寸和接近方向。",
+        "hypothesis": "开口如果只能容下一根手指，有些人可能改用指尖捏住外侧。",
+        "unknown": "画面没有尺度，也看不见手指尝试握持的过程。",
+        "check": "找一只相似的空杯，从侧面观察开口，再对照自己的手指，记录实际采用的握法。",
+        "transfer": "把同一个问题带到抽屉拉手上。你能从哪些方向靠近，哪种握法真正可行？",
+        "conceptIds": [
+          "affordance",
+          "signifier"
+        ],
+        "geometry": {
+          "type": "point",
+          "points": [
+            [
+              0.382,
+              0.673
+            ]
+          ]
+        }
+      },
+      {
+        "id": "f2",
+        "kind": "tradeoff",
+        "notice": "碟子给杯与匙留了怎样的位置？",
+        "observation": "杯子放在碟上，金属匙的匙面和杯身紧挨着，二者都在碟沿之内。",
+        "interpretation": "同一只碟子可以把两个物件集中起来。留给手指取匙的空间，也会随杯子的位置变化。",
+        "hypothesis": "把杯子向匙移动一点，端取整套器具和单独拿匙可能会受到不同影响。",
+        "unknown": "无法从照片确定匙是否卡住、这是不是店员有意安排的摆放方式。",
+        "check": "用空杯和常温餐具复现两种摆放。保持碟子不动，比较能从哪一侧拿起匙。",
+        "transfer": "在早餐托盘上看看，哪些东西适合一起搬运，单独取用时又是否相互挡住。",
+        "conceptIds": [
+          "trade-offs",
+          "constraints"
+        ],
+        "geometry": {
+          "type": "relationship",
+          "points": [
+            [
+              0.521,
+              0.54
+            ],
+            [
+              0.614,
+              0.703
+            ]
+          ]
+        }
+      },
+      {
+        "id": "f3",
+        "kind": "question",
+        "notice": "内外两种颜色，让什么更容易看清？",
+        "observation": "杯壁内侧呈浅色，外侧为深红色。咖啡液面与浅色杯壁之间有可见边界。",
+        "interpretation": "在这次光照下，液面与内壁形成色差，可用来估计剩余空间。人是否真能因此倒得更准，还需要比较。",
+        "hypothesis": "换成颜色接近咖啡的内壁，液面边缘可能更难分辨。",
+        "unknown": "这一帧不能证明设计者选择颜色的目的，也不能说明光线变弱时的效果。",
+        "check": "选两个形状相近、内壁明暗不同的杯子，在同一光线下用常温液体比较。",
+        "transfer": "去看一只水壶的水位窗。刻度、背景颜色和观察角度怎样共同影响读数？",
+        "conceptIds": [
+          "system-image",
+          "knowledge"
+        ],
+        "geometry": {
+          "type": "region",
+          "points": [
+            [
+              0.365,
+              0.224
+            ],
+            [
+              0.582,
+              0.362
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tripod",
+    "title": "取景器前的三脚架",
+    "collection": "摄影工具 · 户外",
+    "image": "photos/camera.png",
+    "color": "#a8a9a5",
+    "credit": "Lav Varshney · scikit-image",
+    "license": "CC0，摄影者开放使用。",
+    "source": "https://scikit-image.org/docs/0.25.x/api/skimage.data.html#skimage.data.camera",
+    "alt": "黑白照片里，一人俯身靠近三脚架上的相机。",
+    "lensId": "designer",
+    "date": "2026-11-24",
+    "limitation": "本图呈现一个瞬间，无法判断调节是否顺畅，也无法得知这个人的目标或感受。",
+    "findings": [
+      {
+        "id": "f1",
+        "kind": "detail",
+        "notice": "身体在靠近相机的哪一侧？",
+        "observation": "人物眼部与相机后端接近。机身由支架托住，人的头部从侧后方靠近。",
+        "interpretation": "相机的位置和观察端的位置共同限定了可接近的方向。器具在什么高度，会改变观察者需要采取的姿势。",
+        "hypothesis": "在支架高度不变时，另一位身高不同的人可能需要采取不同姿势。",
+        "unknown": "眼部附近的图像无法证明能看清取景内容，也不能推断是否感到不适。",
+        "check": "先记录支架高度，再让另一位使用者自行找取景位置，比较需要改变的条件。",
+        "transfer": "把问题带到有固定高度的售票机或门禁读卡器上。",
+        "conceptIds": [
+          "affordance",
+          "hcd"
+        ],
+        "geometry": {
+          "type": "relationship",
+          "points": [
+            [
+              0.475,
+              0.287
+            ],
+            [
+              0.528,
+              0.299
+            ]
+          ]
+        }
+      },
+      {
+        "id": "f2",
+        "kind": "tradeoff",
+        "notice": "展开的支腿占了多少地面？",
+        "observation": "支架的腿从中心下方分向画面边缘。部分支腿伸出了画框。",
+        "interpretation": "展开空间给支撑提供了条件，同时会占用周围的通行空间。仅凭图像无法估算承载能力。",
+        "hypothesis": "狭窄处可能需要改变支腿位置，进而改变可用的观察位置。",
+        "unknown": "支腿末端不全在画面内，地面高低与使用要求也不清楚。",
+        "check": "从更远的位置记录完整占地，观察旁边是否有实际通行路径。",
+        "transfer": "观察折叠晾衣架的展开范围，谁还需要使用同一块地面？",
+        "conceptIds": [
+          "trade-offs",
+          "constraints"
+        ],
+        "geometry": {
+          "type": "structure",
+          "points": [
+            [
+              0.571,
+              0.633
+            ],
+            [
+              0.613,
+              0.643
+            ],
+            [
+              0.754,
+              0.973
+            ],
+            [
+              0.464,
+              0.973
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "clock",
+    "title": "看不清的墙钟",
+    "collection": "公共空间 · 证据不足",
+    "image": "photos/clock.png",
+    "color": "#929391",
+    "credit": "Stefan van der Walt · scikit-image",
+    "license": "摄影者将照片置于公有领域。",
+    "source": "https://scikit-image.org/docs/0.25.x/api/skimage.data.html#skimage.data.clock",
+    "alt": "一只因拍摄移动而模糊的墙钟，刻度和指针难以辨别。",
+    "lensId": "designer",
+    "date": "2026-11-24",
+    "limitation": "拍摄时相机发生了移动。照片中的刻度和指针不足以核对时间或评价钟面的可读性。请补一张从实际读钟位置拍摄、对焦稳定的照片。",
+    "findings": []
+  }
+]

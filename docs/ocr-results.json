@@ -1,0 +1,327 @@
+[
+  {
+    "file": "public-stop-test.jpg",
+    "sha256": "510232febbb25446cbc31e6ed5ad2fde0a7b2f21b91d6d4b1d311950e9bbaed6",
+    "runtimeMs": 206,
+    "recognizedLines": 9,
+    "candidates": [
+      {
+        "text": "STOP",
+        "confidence": 0.92789963,
+        "box": {
+          "xmin": 0.735,
+          "ymin": 0.22889305816135083,
+          "xmax": 0.95875,
+          "ymax": 0.4652908067542214
+        }
+      }
+    ]
+  },
+  {
+    "file": "stop1.jpg",
+    "sha256": "ffa7e326f9fd5a0195a9862f51338779212bee49d8577633b8844150727b40f7",
+    "runtimeMs": 23,
+    "recognizedLines": 1,
+    "candidates": [
+      {
+        "text": "STOP",
+        "confidence": 0.94467461,
+        "box": {
+          "xmin": 0.3772357723577236,
+          "ymin": 0.08,
+          "xmax": 0.5138211382113821,
+          "ymax": 0.29333333333333333
+        }
+      }
+    ]
+  },
+  {
+    "file": "stop5.jpg",
+    "sha256": "3feef95c2df455be05e799149d7328a59701e842d80f8594d448d50e3157e1f0",
+    "runtimeMs": 126,
+    "recognizedLines": 2,
+    "candidates": [
+      {
+        "text": "STOP",
+        "confidence": 0.96690529,
+        "box": {
+          "xmin": 0.48059701492537316,
+          "ymin": 0.3105134474327628,
+          "xmax": 0.7283582089552239,
+          "ymax": 0.5696821515892421
+        }
+      }
+    ]
+  },
+  {
+    "file": "stop6.jpg",
+    "sha256": "3655b259d5c1fa9d814dcb35fd7904a1b7b23113cd27adbee63e6c2bcd95011f",
+    "runtimeMs": 39,
+    "recognizedLines": 1,
+    "candidates": [
+      {
+        "text": "STOP",
+        "confidence": 0.8656488,
+        "box": {
+          "xmin": 0.15764705882352942,
+          "ymin": 0.25177304964539005,
+          "xmax": 0.39294117647058824,
+          "ymax": 0.48226950354609927
+        }
+      }
+    ]
+  },
+  {
+    "file": "color.jpg",
+    "sha256": "fb858bad5febad17bd75631b951279628bfad3e88bff93d93d45e53f72c9b110",
+    "runtimeMs": 69,
+    "recognizedLines": 1,
+    "candidates": []
+  },
+  {
+    "file": "gray.jpg",
+    "sha256": "7f374fce68e05736df9ebe938a2dca8782f994897921c0c3e3ab610641deb014",
+    "runtimeMs": 280,
+    "recognizedLines": 27,
+    "candidates": []
+  },
+  {
+    "file": "hold11.jpg",
+    "sha256": "5e0b8f341e0c437c425e7e5eb7b9bc9c1673d44664ccbc94578d781d644f6d90",
+    "runtimeMs": 472,
+    "recognizedLines": 50,
+    "candidates": [
+      {
+        "text": "STOP",
+        "confidence": 0.9681802399999999,
+        "box": {
+          "xmin": 0.22055555555555556,
+          "ymin": 0.12916666666666668,
+          "xmax": 0.3861111111111111,
+          "ymax": 0.32083333333333336
+        }
+      }
+    ]
+  },
+  {
+    "file": "hold101.jpg",
+    "sha256": "f8c6c371688e76fc31d883060c00d4ab4235bd9d9204cd633527a591fbf523b3",
+    "runtimeMs": 386,
+    "recognizedLines": 36,
+    "candidates": []
+  },
+  {
+    "file": "hold110.jpg",
+    "sha256": "c9dfe28b8fad1c06db1412a41a263e61def2c34f4f122d96baddeefde81d8e2a",
+    "runtimeMs": 189,
+    "recognizedLines": 9,
+    "candidates": [
+      {
+        "text": "PARKING",
+        "confidence": 0.91645332,
+        "box": {
+          "xmin": 0.778125,
+          "ymin": 0.5613207547169812,
+          "xmax": 0.834375,
+          "ymax": 0.5778301886792453
+        }
+      }
+    ]
+  },
+  {
+    "file": "holdlabel.jpg",
+    "sha256": "39c9c9b69673880b17fa038c74f2a46e3e97841ed39ac4318efc5fde58512984",
+    "runtimeMs": 376,
+    "recognizedLines": 31,
+    "candidates": [
+      {
+        "text": "PHO CAPITAL",
+        "confidence": 0.94920357,
+        "box": {
+          "xmin": 0.1,
+          "ymin": 0.05359056806002144,
+          "xmax": 0.46,
+          "ymax": 0.0857449088960343
+        }
+      },
+      {
+        "text": "107 State Street",
+        "confidence": 0.9572193900000001,
+        "box": {
+          "xmin": 0.10857142857142857,
+          "ymin": 0.09431939978563773,
+          "xmax": 0.6471428571428571,
+          "ymax": 0.12968917470525188
+        }
+      },
+      {
+        "text": "Montpelier Vermont",
+        "confidence": 0.9037908899999999,
+        "box": {
+          "xmin": 0.10142857142857142,
+          "ymin": 0.13719185423365488,
+          "xmax": 0.7171428571428572,
+          "ymax": 0.17792068595927116
+        }
+      },
+      {
+        "text": "REG 07-24-2017 06:59 PM",
+        "confidence": 0.94474365,
+        "box": {
+          "xmin": 0.11142857142857143,
+          "ymin": 0.3097534833869239,
+          "xmax": 0.9271428571428572,
+          "ymax": 0.35691318327974275
+        }
+      },
+      {
+        "text": "045555",
+        "confidence": 0.94076233,
+        "box": {
+          "xmin": 0.7342857142857143,
+          "ymin": 0.35262593783494106,
+          "xmax": 0.9285714285714286,
+          "ymax": 0.3858520900321543
+        }
+      },
+      {
+        "text": "CT",
+        "confidence": 0.85340553,
+        "box": {
+          "xmin": 0.77,
+          "ymin": 0.39978563772775993,
+          "xmax": 0.8271428571428572,
+          "ymax": 0.42979635584137194
+        }
+      },
+      {
+        "text": "1 FOOD",
+        "confidence": 0.8925971199999999,
+        "box": {
+          "xmin": 0.1657142857142857,
+          "ymin": 0.5016077170418006,
+          "xmax": 0.36,
+          "ymax": 0.5369774919614148
+        }
+      },
+      {
+        "text": "95",
+        "confidence": 0.82613426,
+        "box": {
+          "xmin": 0.8757142857142857,
+          "ymin": 0.4855305466237942,
+          "xmax": 0.9357142857142857,
+          "ymax": 0.5144694533762058
+        }
+      },
+      {
+        "text": "1 FOOD",
+        "confidence": 0.81411057,
+        "box": {
+          "xmin": 0.16714285714285715,
+          "ymin": 0.5455519828510182,
+          "xmax": 0.36142857142857143,
+          "ymax": 0.5809217577706324
+        }
+      },
+      {
+        "text": "95",
+        "confidence": 0.92343147,
+        "box": {
+          "xmin": 0.8771428571428571,
+          "ymin": 0.5284030010718114,
+          "xmax": 0.9371428571428572,
+          "ymax": 0.5584137191854234
+        }
+      },
+      {
+        "text": "3 No",
+        "confidence": 0.94203079,
+        "box": {
+          "xmin": 0.5757142857142857,
+          "ymin": 0.6237942122186495,
+          "xmax": 0.7042857142857143,
+          "ymax": 0.654876741693462
+        }
+      },
+      {
+        "text": "$21",
+        "confidence": 0.92140427,
+        "box": {
+          "xmin": 0.7471428571428571,
+          "ymin": 0.6613076098606645,
+          "xmax": 0.8371428571428572,
+          "ymax": 0.6988210075026795
+        }
+      },
+      {
+        "text": "40",
+        "confidence": 0.96440964,
+        "box": {
+          "xmin": 0.8842857142857142,
+          "ymin": 0.6602357984994641,
+          "xmax": 0.9442857142857143,
+          "ymax": 0.6902465166130761
+        }
+      },
+      {
+        "text": "92",
+        "confidence": 0.96074379,
+        "box": {
+          "xmin": 0.8857142857142857,
+          "ymin": 0.7041800643086816,
+          "xmax": 0.9471428571428572,
+          "ymax": 0.7352625937834941
+        }
+      },
+      {
+        "text": "TL",
+        "confidence": 0.96114296,
+        "box": {
+          "xmin": 0.24142857142857144,
+          "ymin": 0.7695605573419079,
+          "xmax": 0.3028571428571429,
+          "ymax": 0.8017148981779206
+        }
+      },
+      {
+        "text": "CASH",
+        "confidence": 0.957939,
+        "box": {
+          "xmin": 0.24142857142857144,
+          "ymin": 0.8135048231511254,
+          "xmax": 0.3742857142857143,
+          "ymax": 0.8467309753483387
+        }
+      },
+      {
+        "text": "$23.32",
+        "confidence": 0.85458839,
+        "box": {
+          "xmin": 0.7557142857142857,
+          "ymin": 0.7931404072883173,
+          "xmax": 0.9514285714285714,
+          "ymax": 0.8338692390139335
+        }
+      }
+    ]
+  },
+  {
+    "file": "synthetic-label.jpg",
+    "sha256": "8e25eba389180bf0a9bb7941ddc68d3c4bda448af0b969dba4d4b842b38fda7e",
+    "runtimeMs": 37,
+    "recognizedLines": 1,
+    "candidates": [
+      {
+        "text": "PUSH TO OPEN",
+        "confidence": 0.9589672899999999,
+        "box": {
+          "xmin": 0.1,
+          "ymin": 0.353125,
+          "xmax": 0.765,
+          "ymax": 0.521875
+        }
+      }
+    ]
+  }
+]

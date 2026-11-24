@@ -1,0 +1,662 @@
+{
+  "id": "designer",
+  "version": "0.1.0",
+  "status": "provisional",
+  "name": "设计师之眼",
+  "english": "Designer’s Eye",
+  "scope": "日常物件、界面和公共空间中，人怎样找到可做的动作，并判断动作带来了什么。",
+  "sourceReview": "暂定版。已核对 2013 修订版的出版社书目、作者公开的完整目录、修订版前言及署名文章。章节号用于定位主题。待取得并逐章核对完整原著。",
+  "attribution": "概念释义依据下列资料，用中文重述。观察步骤、证据规则、现场问题、练习及迁移活动由 WorldLens 编排。文章中的实地观察只归属于原案例。",
+  "sources": [
+    {
+      "id": "edition",
+      "title": "Basic Books · The Design of Everyday Things, Revised and Expanded Edition",
+      "url": "https://www.hachettebookgroup.com/titles/don-norman/the-design-of-everyday-things/9780465050659/",
+      "evidence": "出版社书目，2013 年美国修订版、ISBN 9780465050659 及内容简介。"
+    },
+    {
+      "id": "contents",
+      "title": "Don Norman · 2013 修订版作者书目与完整目录",
+      "url": "https://jnd.org/books/the-design-of-everyday-things-revised-and-expanded-edition/",
+      "evidence": "作者列出的七章、分节和示例题名，供概念定位。"
+    },
+    {
+      "id": "preface",
+      "title": "Don Norman · 修订版前言",
+      "url": "https://jnd.org/preface-design-of-everyday-things-revised-edition/",
+      "evidence": "作者公开的前言，说明各章修订重点及做出修改的理由。"
+    },
+    {
+      "id": "signifiers",
+      "title": "Don Norman · Signifiers, not affordances",
+      "url": "https://jnd.org/signifiers-not-affordances/",
+      "evidence": "作者署名文章，解释行动可能性、可感知的指示及偶然形成的线索。"
+    },
+    {
+      "id": "conventions",
+      "title": "Don Norman · Affordance, Conventions and Design (Part 2)",
+      "url": "https://jnd.org/affordance-conventions-and-design-part-2/",
+      "evidence": "作者比较行动可能性、约定、约束、概念模型，并讨论如何观察现实使用。"
+    },
+    {
+      "id": "communication",
+      "title": "Don Norman · Design as Communication",
+      "url": "https://jnd.org/design-as-communication/",
+      "evidence": "作者说明设计者、系统意象及使用者模型的关系，包含灰色菜单项的例子。"
+    },
+    {
+      "id": "switches",
+      "title": "Don Norman · Floorplan Light Switches",
+      "url": "https://jnd.org/floorplan-light-switches/",
+      "evidence": "作者讲述自己制作的开关板，并明确标出修订版第 4 章图 4.4、4.5。"
+    },
+    {
+      "id": "movement",
+      "title": "Don Norman · What Moves? Culture & Interaction Design",
+      "url": "https://jnd.org/what-moves-culture-interaction-design/",
+      "evidence": "作者讨论滚动内容、移动窗口等参照系如何改变预期。"
+    },
+    {
+      "id": "errors",
+      "title": "Don Norman · Human Error? No, Bad Design",
+      "url": "https://jnd.org/human-error-no-bad-design/",
+      "evidence": "作者结合渡轮事故调查，追问控制模式、操作流程和管理条件。"
+    },
+    {
+      "id": "hcd",
+      "title": "Don Norman · The Four Fundamental Principles of Human-Centered Design and Application",
+      "url": "https://jnd.org/the-four-fundamental-principles-ofhuman-centered-design-and-application/",
+      "evidence": "作者在 2019 年阐述现场观察、系统关系、查找原因和反复验证，作为第 6 章的补充。"
+    },
+    {
+      "id": "gulfs",
+      "title": "Kathryn Whitenton · The Two UX Gulfs: Evaluation and Execution",
+      "url": "https://www.nngroup.com/articles/two-ux-gulfs-evaluation-execution/",
+      "evidence": "Nielsen Norman Group 的独立教学解释，说明执行及评估的困难。"
+    },
+    {
+      "id": "slips",
+      "title": "Page Laubheimer · Preventing User Errors: Avoiding Unconscious Slips",
+      "url": "https://www.nngroup.com/articles/slips/",
+      "evidence": "Nielsen Norman Group 的实践文章，提供正确意图下执行出错的实例。"
+    },
+    {
+      "id": "mistakes",
+      "title": "Page Laubheimer · Preventing User Errors: Avoiding Conscious Mistakes",
+      "url": "https://www.nngroup.com/articles/user-mistakes/",
+      "evidence": "Nielsen Norman Group 的实践文章，用例子区分目标、判断与动作的偏差。"
+    }
+  ],
+  "dimensions": [
+    {
+      "id": "attention",
+      "label": "注意什么",
+      "prompt": "同一物体上，结实的突出部位、细小的箭头、灯的朝向、几个控件的相对位置，分别给谁提供了什么信息？"
+    },
+    {
+      "id": "questions",
+      "label": "追问什么",
+      "prompt": "第一次靠近的人会先做什么？同一个动作还有什么合理解释？换个站位、光线或使用者，线索还成立吗？"
+    },
+    {
+      "id": "concepts",
+      "label": "用哪些概念",
+      "prompt": "先定位任务在哪一步出现不确定，再从动作可能、线索、控制对应、反馈、模型、约束和差错中选能解释该处的一项。"
+    },
+    {
+      "id": "relationships",
+      "label": "找什么关系",
+      "prompt": "把人、目标、控件、被控制的对象、状态和环境连起来。谈映射时，至少指出控制端和效果端。"
+    },
+    {
+      "id": "mechanisms",
+      "label": "怎样解释",
+      "prompt": "说明某个线索如何让人少记住一个对应、排除一个动作，或辨认一个结果。写出它成立的条件。"
+    },
+    {
+      "id": "reasoning",
+      "label": "如何推理",
+      "prompt": "先写别人也能指认的事实，再比较两种可区分的解释。按证据强弱说明哪些来自照片，哪些来自现场补充。"
+    },
+    {
+      "id": "verification",
+      "label": "如何验证",
+      "prompt": "先让对方在获得提示前预测，再观察实际的安全操作。保留相反证据，明确哪种结果会让原判断改变。"
+    },
+    {
+      "id": "boundaries",
+      "label": "在哪里止步",
+      "prompt": "静态照片能展示当时可见的形状、排列和字样。动作的可行性、响应时序、用户意图和组织决策需要额外证据。"
+    },
+    {
+      "id": "transfer",
+      "label": "如何迁移",
+      "prompt": "换到另一个物体或界面，先隐藏提示，寻找具有相同控制关系、但外形不同的证据，再测试预测。"
+    }
+  ],
+  "workflow": [
+    {
+      "id": "ground",
+      "title": "指给另一人看",
+      "detail": "先写位置和能核对的事实。照片之外的知识单列。局部无法辨认时改为整体提问或请求补图。"
+    },
+    {
+      "id": "situate",
+      "title": "给一个人一个目标",
+      "detail": "写清谁在什么情境里，试图达成什么。若用户没有说明，使用“假设第一次来的人要……”的条件句。"
+    },
+    {
+      "id": "predict",
+      "title": "在动手前做个预测",
+      "detail": "说出可尝试的动作、支持它的线索、预期受影响的对象。同一外观若也支持别的动作，保留另一个预测。"
+    },
+    {
+      "id": "compare",
+      "title": "在动作前后找差别",
+      "detail": "比较状态变化和人的预期。只有静态图时，指出要补的角度、操作记录或说明。"
+    },
+    {
+      "id": "test",
+      "title": "设计一次能改变看法的核对",
+      "detail": "明确出现哪种结果会支持或推翻解释。先保存个人判断，再操作、问人或查看说明；保留改判原因。"
+    },
+    {
+      "id": "transfer",
+      "title": "在另一件东西上重来",
+      "detail": "换一个外观不同但关系相同的任务。先独立找线索和反例，再回来对照。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "observation",
+      "name": "可见事实",
+      "rule": "只写能在指定照片直接指认的对象、字样、形状或位置。用户说“按下时有声音”可以作为另记来源的现场报告；单幅照片能核对的事实仍限于可见内容。"
+    },
+    {
+      "id": "interpretation",
+      "name": "解释",
+      "rule": "提出已知机制怎样解释该细节。解释涉及特定使用者时写明前提。"
+    },
+    {
+      "id": "hypothesis",
+      "name": "待验证假设",
+      "rule": "写出一个可能被反例推翻的预测，例如在改变某个条件后，人会选择另一个控件。"
+    },
+    {
+      "id": "unknown",
+      "name": "未知",
+      "rule": "说明当前无法判断的内容，并给出一种能够区分解释的补证办法。"
+    }
+  ],
+  "reasoningRules": [
+    "从照片找独立证据，不依照概念表凑数。没有可辨识的人造物或任务线索时，保留零条发现并说明补图需要。",
+    "优先选择会改变下一眼看哪里、下一步怎样核实的发现。共享同一证据和机制的候选项合并，单个优秀发现也足够。",
+    "每个设计判断都指定具体任务和使用条件。根据照片只能描述可见线索与可验证假设。用户自述可补充目标或经历，应保留来源。",
+    "不为照片外的部件或过程生成精确坐标。知道是整体结构时使用结构或全局标注。看不清效果端时可定位已知控件，把另一端列作待验证。",
+    "把操作前的线索、动作后的反馈、静态状态指示分开。提示不会直接建立行动能力。共处或相邻不证明控制关系。",
+    "推断 slips 或 mistakes 前须知道预期与实际动作。单幅磨损图不能证明使用频率、人的意图或致错经过。",
+    "权衡要说明两个目标、受影响的人和区分假设的证据。难度可能服务于其他目标。制造成本、材料性能和真实设计意图需要另作核查。",
+    "别把 AI 未提到的观察算作错误。比较独立证据、备选解释及验证办法。不同站位和目标可能同时支持多条结论。"
+  ],
+  "categories": [
+    {
+      "id": "good_design",
+      "english": "Good Design",
+      "name": "有效设计",
+      "test": "写出具体任务、可见支持和可能节省的判断，说明想把它称作有效还需要哪些证据。"
+    },
+    {
+      "id": "potential_issue",
+      "english": "Potential Issue",
+      "name": "潜在问题",
+      "test": "指出哪两种动作、读法或状态在此处可能混淆。把风险限定到场景。"
+    },
+    {
+      "id": "interesting_detail",
+      "english": "Interesting Detail",
+      "name": "观察细节",
+      "test": "指出会改变看法的一处细节，以及它与操作的关系。"
+    },
+    {
+      "id": "design_trade_off",
+      "english": "Design Trade-off",
+      "name": "设计权衡",
+      "test": "两个目标或使用群体各得失什么？可以怎样区分这种解释与其他解释？"
+    },
+    {
+      "id": "open_question",
+      "english": "Open Question",
+      "name": "开放问题",
+      "test": "给出两个合理可能和能区分它们的现场动作。"
+    }
+  ],
+  "concepts": [
+    {
+      "id": "affordance",
+      "group": "找到动作",
+      "name": "行动可能性",
+      "english": "Affordance",
+      "chapters": [
+        1,
+        4
+      ],
+      "sources": [
+        "contents",
+        "signifiers",
+        "conventions"
+      ],
+      "meaning": "人的能力与环境的实际条件结合，使某种动作成为可能。",
+      "distinction": "可抓握是人与形状之间的能力关系。让人想到抓握的是线索。有人看见、理解、能够做到，是三个分别要核实的问题。",
+      "signs": "把手后方的间隙、两侧可接触的表面、物体相对手或工具的尺寸。",
+      "useWhen": "能够指明哪类使用者以什么身体条件、从哪个方向尝试什么动作。",
+      "counterexample": "实物照片上的手柄看起来容易拉，背后是否有足够空间、部件是否固定仍未知。屏幕上的手柄图标也不能被手握住。",
+      "ask": "谁的手能从哪个方向伸进去？戴上厚手套是否仍能做同一动作？",
+      "check": "补侧视图和尺度。由合适的使用者在正常使用条件下尝试，并记录动作是否实际完成。",
+      "transfer": "从门把手转到水杯把手。比较二者为手指留下的位置，以及持握姿势所需的条件。"
+    },
+    {
+      "id": "signifier",
+      "group": "找到动作",
+      "name": "指示线索",
+      "english": "Signifier",
+      "chapters": [
+        1,
+        4
+      ],
+      "sources": [
+        "contents",
+        "signifiers",
+        "conventions"
+      ],
+      "meaning": "一个可感知的线索向人提示在何处、怎样行动，或怎样理解当下的情境。它可以来自有意的标记，也可以偶然形成。",
+      "distinction": "线索的作用在于传递信息。它能引导动作，也可能引导到无法执行的动作。一个线索的存在不能证明作者的意图。",
+      "signs": "拉片旁的箭头、墙上一条与开关对齐的细线、地面走出的窄路。",
+      "useWhen": "能说出线索可能被谁感知，提示了哪个动作或方向，以及为什么。",
+      "counterexample": "一块磨亮的金属也可能来自清洁或反光。单凭亮斑不能断言人经常在这里触摸。",
+      "ask": "先遮住字或箭头，会有哪些同样合理的用法？",
+      "check": "让第一次见到的人在操作前指出会碰哪里。对比有无该线索时的选择及理由。",
+      "transfer": "到售票机寻找付款动作的提示，再核实它是否也能被初次到访者识别。"
+    },
+    {
+      "id": "discoverability",
+      "group": "找到动作",
+      "name": "可发现性",
+      "english": "Discoverability",
+      "chapters": [
+        1,
+        4
+      ],
+      "sources": [
+        "edition",
+        "contents",
+        "conventions"
+      ],
+      "meaning": "处在某一任务中的人，能否发现可做什么、在何处做、怎样开始。",
+      "distinction": "显眼的控件仍可能让人不知用途。熟手凭经验顺利完成，只说明这个人有足够信息。",
+      "signs": "看似空白的面板、可操作位置和说明分隔很远、一个动作需要先揭开或展开才能看见。",
+      "useWhen": "目标、观察起点及可接触的入口相对明确时，可检查线索是否把人带到下一步。",
+      "counterexample": "裁掉箭头的局部照不能证明整套系统缺少提示。环境中的声响、触感或现场引导也可能提供信息。",
+      "ask": "站在入口，第一次办理这件事的人最先能发现什么？",
+      "check": "从实际入口给一个目标，避免提前示范。记录第一次尝试、寻找路径以及在哪里需要帮助。",
+      "transfer": "从隐蔽的开门按钮转到手机的隐藏菜单，看首次使用者通过什么证据找到入口。"
+    },
+    {
+      "id": "mapping",
+      "group": "预判作用",
+      "name": "控制与效果的对应",
+      "english": "Mapping",
+      "chapters": [
+        1,
+        3,
+        4
+      ],
+      "sources": [
+        "contents",
+        "switches",
+        "movement",
+        "preface"
+      ],
+      "meaning": "一个控制的位置、方向或移动量，与受影响对象或结果之间的对应关系。",
+      "distinction": "箭头是线索。旋钮与哪盏灯相连是对应。几何相似能支持一个预测，实际配对仍待核实。",
+      "signs": "两套相似布局、图例或引线、旋转方向与刻度的相对关系。",
+      "useWhen": "能分别指出控制端和效果端，或明确第二端为何需要补证。",
+      "counterexample": "看到四个紧邻的按钮，不足以推出它们控制四个特定区域。相同方向在不同滚动习惯下也可能代表相反结果。",
+      "ask": "要改变最远处那个对象，会选哪个控件？站到另一侧，预测会变吗？",
+      "check": "先独立画出预计配对，再逐个核对安全的操作结果。若有例外，更新整张对应表。",
+      "transfer": "从灯开关转到视频会议的多个麦克风控件，检查每个控件影响谁听见什么。"
+    },
+    {
+      "id": "constraints",
+      "group": "预判作用",
+      "name": "约束",
+      "english": "Constraints",
+      "chapters": [
+        3,
+        4,
+        5
+      ],
+      "sources": [
+        "contents",
+        "conventions",
+        "preface"
+      ],
+      "meaning": "物理结构、习俗、情境意义或已知关系可以排除某些选择，减少下一步的不确定。",
+      "distinction": "物理形状能挡住一种动作。文化约定引导熟悉它的人。语义约束借助情境含义，逻辑约束依赖可推导的关系。它们对不同人起作用的方式不同。",
+      "signs": "不对称接口、只有一路开口的导轨、与装配位置相符的轮廓或灰色菜单项。",
+      "useWhen": "需要解释为什么一项选择做不到，或为什么人有依据排除它，并说清排除依据。",
+      "counterexample": "红色警告标记依然允许人执行动作。外观发灰也可能只是配色，不能据此宣称系统阻止了输入。",
+      "ask": "把这个方向换过来，动作真的被结构挡住了吗？还是人读懂了某种惯例？",
+      "check": "用可观察的几何匹配、说明或正常操作区分物理限制与约定。避免用力测试。",
+      "transfer": "把拼图只能放入某处的关系迁移到表单，区分不可选日期和可选但带警告的日期。"
+    },
+    {
+      "id": "knowledge",
+      "group": "预判作用",
+      "name": "记忆与环境线索",
+      "english": "Knowledge in the Head and in the World",
+      "chapters": [
+        3
+      ],
+      "sources": [
+        "contents",
+        "switches",
+        "conventions"
+      ],
+      "meaning": "完成任务所需的信息可以由个人记住，也可以存在于物品的排列、文字、标记、他人和周围环境中。",
+      "distinction": "信息已写在面板上，仍可能需要人记住另一处的符号含义。重复使用后的熟练本身无法证明初次使用也容易。",
+      "signs": "快捷键旁的命令名、步骤旁的刻度、需要从上一屏抄到下一屏的编号。",
+      "useWhen": "找得到某个必须知道的信息，以及使用者在真正做决定的时刻能从哪里获得它。",
+      "counterexample": "一种语言的标签对读得懂的人提供外部线索，对不识字或尚不熟悉该语言的人可能没有帮助。",
+      "ask": "离开上一块面板以后，哪些信息必须记在脑中？谁能读懂留在现场的提示？",
+      "check": "在正常任务中观察查找、回头看和默记。遮挡一项外部信息，先询问预测，再比较发生的变化。",
+      "transfer": "从家电刻度转到课程报名流程，找出哪些选择信息能在需要时被重新看到。"
+    },
+    {
+      "id": "system-image",
+      "group": "理解系统",
+      "name": "系统意象",
+      "english": "System Image",
+      "chapters": [
+        1
+      ],
+      "sources": [
+        "contents",
+        "communication"
+      ],
+      "meaning": "使用者能够接触到的产品外观、表现、说明与辅助材料合在一起，构成系统向人呈现的信息。",
+      "distinction": "系统意象是人可以接触的证据。人心里的解释是用户模型。内部实现还需要另外的材料来核实。",
+      "signs": "屏幕标签、机身符号、状态展示和印刷说明对同一功能的称呼与先后关系。",
+      "useWhen": "比较不同入口对同一状态的描述，或检查能否用呈现出来的信息解释一个现象。",
+      "counterexample": "一张面板照只能提供系统意象的一部分。它无法揭示设计团队的真实想法，也不能说明使用者实际理解了什么。",
+      "ask": "面板、说明和实际响应给出的信息是否相互一致？",
+      "check": "并排核对面板、帮助文档及一次正常操作。先请使用者解释，再分析哪些证据支持了那个解释。",
+      "transfer": "对比一张洗衣机面板及其说明，再去核对网站“已保存”的提示与导出文件。"
+    },
+    {
+      "id": "conceptual-model",
+      "group": "理解系统",
+      "name": "概念模型",
+      "english": "Conceptual Model",
+      "chapters": [
+        1,
+        2,
+        3
+      ],
+      "sources": [
+        "contents",
+        "communication",
+        "movement"
+      ],
+      "meaning": "关于一个系统怎样运作的简化解释，使人有依据预测操作的结果。团队、使用者及旁观者的模型可能不同。",
+      "distinction": "规则记忆能帮助人复现一步。能提出对新情况的预测，更能检验解释的范围。内部机械结构与人可用的简化模型各有角色。",
+      "signs": "同一旋钮旁的两个温度读数、同一手势在“移动内容”和“移动窗口”两种说法下产生相反预测。",
+      "useWhen": "两种可说清的运行解释，对同一变化能给出不同结果。",
+      "counterexample": "一个人熟练按对了一次按钮，可能只是记住了位置。这一个动作无法揭示其概念模型。",
+      "ask": "请用自己的话解释这两个读数。如果只改其中一个，另一个接下来应当怎样变化？",
+      "check": "先记录预测，再选一个新条件核对，询问为什么会这样。必要时与系统说明对照。",
+      "transfer": "从恒温器转到滚动界面。从使用者视角区分“移动的是内容”与“移动的是窗口”。"
+    },
+    {
+      "id": "feedback",
+      "group": "判断结果",
+      "name": "反馈",
+      "english": "Feedback",
+      "chapters": [
+        1,
+        2,
+        4
+      ],
+      "sources": [
+        "contents",
+        "gulfs",
+        "communication"
+      ],
+      "meaning": "动作之后可感知的结果信息，使人能判断操作是否被接收、进展如何或达到什么状态。",
+      "distinction": "操作前的提示帮助选择。操作后的反馈帮助检查。持续显示的指示灯可传达状态，动作和灯之间的因果及时序仍需前后证据。",
+      "signs": "显示区域、灯旁的字样、可比较的前后数字、可听或可触的响应。",
+      "useWhen": "涉及一次已知操作，且能区分它被接收、正在执行和完成这几个不同含义。",
+      "counterexample": "静态照片中的亮灯也可能是常亮的电源灯。它不能单独证明按键成功、反馈即时或任务已经完成。",
+      "ask": "如果刚刚的动作没有生效，人凭什么辨别？哪种状态还长得一样？",
+      "check": "正常使用时记录动作前、紧接动作后和完成时的状态。核对触感、声音、显示分别说明了什么。",
+      "transfer": "从电梯按钮的灯转到文件上传，分别辨认收到请求、正在传送和成功保存。"
+    },
+    {
+      "id": "action-cycle",
+      "group": "判断结果",
+      "name": "七阶段行动模型",
+      "english": "Seven Stages of Action",
+      "chapters": [
+        2
+      ],
+      "sources": [
+        "contents",
+        "preface",
+        "gulfs"
+      ],
+      "meaning": "把行动分解为形成目标、制定计划、明确动作、执行、感知结果、解释结果和与目标比较，便于定位困难。",
+      "distinction": "这些阶段是分析视角。熟练动作可能很快，活动也会回跳、改变目标或重新计划。单张照片不能提供一条完整行动轨迹。",
+      "signs": "一个具体任务与可见的操作入口、结果显示，或用户补充的预期与操作经过。",
+      "useWhen": "有可描述的任务，需要找出“怎么做”“发生了什么”“是否达到目标”中哪一处缺少信息。",
+      "counterexample": "路人的一张照片不能证明当时经历了哪一心理步骤；没有具体目标时，给七阶段逐项配图会制造虚假的确定性。",
+      "ask": "你本来想达到什么，预计会发生什么，实际看到什么，在哪一步改变了判断？",
+      "check": "请使用者示范一次平常任务，并用其自己的话描述预期和结果。把解释与可复查动作分开记录。",
+      "transfer": "分别记录借书和退书流程，在各自任务中定位第一次需要猜测的环节。"
+    },
+    {
+      "id": "gulf-execution",
+      "group": "找到动作",
+      "name": "执行鸿沟",
+      "english": "Gulf of Execution",
+      "chapters": [
+        2
+      ],
+      "sources": [
+        "contents",
+        "gulfs"
+      ],
+      "meaning": "从人希望达到的目标，到能确定并实际执行合适动作之间的距离。",
+      "distinction": "知道目标却不知道如何开始，通常值得考察执行端。做完后看不懂状态，则要检查评估端。两种困难可以并存。",
+      "signs": "同样外观的多个入口、没有明显方向的动作部位、完成动作所需的身体条件。",
+      "useWhen": "使用者目标已知或明确假设，需要查明可选择的起步动作、可达性或操作方式。",
+      "counterexample": "机器已经开始工作而人无法确认是否成功，首先应考察状态是否可理解。",
+      "ask": "假设只想关闭台灯，在这组控件里你会先碰哪处？为什么？",
+      "check": "让用户先说目标并尝试，观察是找不到入口、无法把意图变成动作，还是已行动却不知道结果。",
+      "transfer": "把找到门按钮的任务移到寻找会议“仅静音自己”的入口，仍从目标反推可用动作。"
+    },
+    {
+      "id": "gulf-evaluation",
+      "group": "判断结果",
+      "name": "评估鸿沟",
+      "english": "Gulf of Evaluation",
+      "chapters": [
+        2
+      ],
+      "sources": [
+        "contents",
+        "gulfs"
+      ],
+      "meaning": "从系统实际状态到人能够感知、解释并判断是否达到目标之间的距离。",
+      "distinction": "反馈是系统可能给出的信息。信息出现以后人能否理解其意义，是另一个要检验的问题。",
+      "signs": "两个相似的状态符号、缺少单位的读数、显示选中的设置但没有显示任务进度的区域。",
+      "useWhen": "已有动作结果或已知状态，需要判断现场的人能否区分完成、等待或未开始。",
+      "counterexample": "人尚不知道应按哪个键，且没有采取任何行动，只足以先检查执行端的困难。",
+      "ask": "同样看到这盏灯，怎样分别判断“请求已收到”和“事情已做完”？",
+      "check": "在已知系统状态下，请对方先说明当前状态和依据，再与实际结果或说明对照。",
+      "transfer": "从洗衣机的完成灯转到线上报名，检验“已提交”与“名额已确认”能否被区分。"
+    },
+    {
+      "id": "slips-mistakes",
+      "group": "重建差错",
+      "name": "失手与判断错误",
+      "english": "Slips and Mistakes",
+      "chapters": [
+        5
+      ],
+      "sources": [
+        "contents",
+        "preface",
+        "slips",
+        "mistakes"
+      ],
+      "meaning": "Slips 是意图或计划合适，执行或记忆环节出现偏差。Mistakes 是目标、判断或计划与真实情形不合，执行可能完全符合当事人原计划。",
+      "distinction": "两个相同结果可能来自不同机制。把知道正确按键却碰到隔壁，与相信隔壁才是正确按键区分开，有助于选择改进办法。",
+      "signs": "相邻的相似按钮、同一控件在多个模式中的用途，加上实际的意图与动作记录。",
+      "useWhen": "至少能核对当事人的目的、当时选择某动作的原因和实际发生的动作。",
+      "counterexample": "磨损、一次按错的结果、专家事后认为简单，单靠其中任何一项都无法将事故归类。",
+      "ask": "你原来想按哪一个，又为什么认为它会带来这个结果？",
+      "check": "将事前预测、实际触点和事后解释对齐。若没有足够依据就保留两种可能。",
+      "transfer": "从两枚相邻开关转到应用的“归档”和“删除”，查清需要改变控件距离还是补足结果解释。"
+    },
+    {
+      "id": "human-error",
+      "group": "重建差错",
+      "name": "人的差错与系统条件",
+      "english": "Human Error",
+      "chapters": [
+        5
+      ],
+      "sources": [
+        "contents",
+        "errors",
+        "hcd"
+      ],
+      "meaning": "差错是一段需要解释的事件。设备表示、工作流程、打断、交接、时间压力及恢复机会都可能参与形成结果。",
+      "distinction": "工具的一处可疑细节可以成为调查线索。“操作员按错了”或“设计师造成的”都需要更完整的因果证据。",
+      "signs": "事后手写提醒、重复检查点、撤回入口、与任务相关的模式切换，加上知情人的叙述。",
+      "useWhen": "明确发生了什么以及资料来源后，追问此前哪些条件让这个动作合理，后续是否可发现及挽回。",
+      "counterexample": "维护标签也许是例行检查要求。仅凭有一个标签就宣称“经常发生事故”，超出了证据。",
+      "ask": "在当时知道的信息下，这一步为何显得合理？如果做错，谁在什么时候还能发现？",
+      "check": "核对当事人、现场流程及可用记录。保留其他解释，包括流程规定、维护及设备状态变化。",
+      "transfer": "从图书馆重复扫描转到会议上误发资料，同时检查提示、打断和撤回机会。"
+    },
+    {
+      "id": "hcd",
+      "group": "向现场求证",
+      "name": "以人为中心的设计",
+      "english": "Human-Centered Design",
+      "chapters": [
+        1,
+        6
+      ],
+      "sources": [
+        "contents",
+        "preface",
+        "hcd"
+      ],
+      "meaning": "围绕实际的人与活动观察需求，重述问题，提出多种可能，通过原型和持续测试修正。",
+      "distinction": "一件外观舒适的产品不足以证明团队采用了这种流程。用户对成品的喜好与任务能否完成也应分别观察。",
+      "signs": "不同站位的操作条件、临时留下的辅助标记、交接过程及实际使用者的叙述。",
+      "useWhen": "能找到与这项活动有关的人，并可让他们在自己的环境中解释或示范目标。",
+      "counterexample": "一个便于观察者使用的按钮，不能替代对视力、身高、技能及使用环境各异的人进行观察。",
+      "ask": "谁在使用，谁负责维护？对其中一方有帮助的改动，会改变另一方的哪一步？",
+      "check": "先理解现场目标，做一个低成本改动，再让相关使用者完成原任务。记录相反意见及未覆盖人群。",
+      "transfer": "把对公交站牌的现场观察移到校园导航，让来访者和维护者分别指出问题。"
+    },
+    {
+      "id": "trade-offs",
+      "group": "向现场求证",
+      "name": "设计权衡",
+      "english": "Design Trade-offs",
+      "chapters": [
+        3,
+        6,
+        7
+      ],
+      "sources": [
+        "contents",
+        "preface",
+        "switches"
+      ],
+      "meaning": "同一选项可能改善一个目标，同时占用空间、时间、注意或维护资源。判断要说明两方目标、使用者和成立条件。",
+      "distinction": "列出可能的利弊是在提出假设。要说明团队为何选择某方案，还需要决策者、规范或项目记录的证据。",
+      "signs": "平齐按钮与突出按钮的区别、确认步骤、共用一个多模式旋钮、同一空间内的说明密度。",
+      "useWhen": "能够提出两项目标和会改变取舍的条件，并把每项可能影响连接到可观察行为。",
+      "counterexample": "控制面板留白并不能直接证明为了节省制造成本。相同外观可能来自易清洁、结构限制或审美选择。",
+      "ask": "延长确认步骤可能保护谁？在哪种日常任务里它又增加了负担？",
+      "check": "对比两种可逆原型，分别记录误操作、完成时间和易恢复性。设计历史的判断另查访谈或文件。",
+      "transfer": "把遥控器的按钮密度迁移到网站工具栏，观察对新手找功能和熟手快速操作的影响。"
+    }
+  ],
+  "cases": [
+    {
+      "id": "light-switches",
+      "type": "作者报告的案例",
+      "name": "房间里的灯为什么被人一起开关？",
+      "sources": [
+        "switches"
+      ],
+      "observation": "Norman 记下人们有时把一列灯开关全部打开或关掉，并展示了一排开关与房间内二维灯位之间的差异。",
+      "interpretation": "开关的位置若保留灯具的相对位置，人有可能直接推断对应关系。板面的朝向和人站在哪里，也会影响如何读它。",
+      "unknown": "照片能显示布局，不能说明每个人的第一反应，也不能估算改善的幅度。",
+      "investigate": "他实际制作了家里和实验室使用的两块开关板，并在示意图中给出人所在的位置。若要进一步比较效果，可记录初见者对位置的事前预测。",
+      "transfer": "到另一个房间或会议控制台，先画出预计受影响的对象，再核查哪一组对应最难解释。"
+    },
+    {
+      "id": "remote-control",
+      "type": "作者报告的反例",
+      "name": "翻到下一页，是上键还是下键？",
+      "sources": [
+        "movement"
+      ],
+      "observation": "Norman 报告他用上键想前进却返回上一页，并向听众展示遥控器。听众对该按哪一枚有不同回答。",
+      "interpretation": "若人想象自己向前，和想象页面移向自己，可能对同样的排列作出不同预测。",
+      "unknown": "这一事例没有给出各群体的比例，也无法确定照片里陌生使用者的心理模型。",
+      "investigate": "给别人看同一遥控器，请他在实际翻页前选一个键，并画出他在想象什么移动。",
+      "transfer": "试着为第一次使用触摸板的人解释滚动方向。先记录他预计移动内容还是视窗，再让他操作。"
+    },
+    {
+      "id": "door",
+      "type": "WorldLens 条件练习",
+      "name": "一侧门把手，画面里没有门轴",
+      "sources": [],
+      "observation": "若只能看见把手突出和周围空间，可以标出握持线索。",
+      "interpretation": "把手可能提示拉近；另一侧结构、门的开启方向及当时是否上锁尚待核查。",
+      "unknown": "只凭把手不能说门该拉、设计错误，或路人总会拉错。",
+      "investigate": "从更宽的角度看门缝、另一侧和标识，或在正常使用中观察门扇如何运动。",
+      "transfer": "换一只抽屉，只用安装位置和手指空间作出预测，再查看它是否真的可拉。"
+    },
+    {
+      "id": "status",
+      "type": "WorldLens 条件练习",
+      "name": "电器面板上的一个亮点",
+      "sources": [],
+      "observation": "若影像只展示一个发亮的区域，可以描述位置、旁边文字和当时外观。",
+      "interpretation": "它可能指示电源、当前设置或某个动作已接收，亮点也可能来自反光。",
+      "unknown": "当前图缺少前后对照及时间顺序。",
+      "investigate": "让使用者在正常操作中从同一角度记录动作前后和完成时的状态，必要时对照说明。",
+      "transfer": "到线上表单区分颜色状态、提交回执及最终审核结果。"
+    },
+    {
+      "id": "insufficient",
+      "type": "WorldLens 信息不足练习",
+      "name": "只有纹理的一小块照片",
+      "sources": [],
+      "observation": "能看见纹理，但没有提供它与控件、任务或人的关系。",
+      "interpretation": "无法选择一种有证据支持的交互设计机制。",
+      "unknown": "对象、尺度和使用位置未知。",
+      "investigate": "补一张能看到完整物件和使用位置的照片，或者说明希望完成哪件事。",
+      "transfer": "遇到只有一角的屏幕截图时也先要求任务和周围上下文。"
+    }
+  ],
+  "revisionPolicy": "取得完整原著后，按同版章节逐项比对含义、反例及作者限定条件，记录更正、来源和新版本。保留旧观察使用的框架版本。"
+}
